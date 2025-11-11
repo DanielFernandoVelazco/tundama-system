@@ -33,6 +33,7 @@ export class SalesService {
             // Generar código de venta
             const saleCode = this.generateSaleCode();
 
+            // Crear la venta primero para obtener el ID
             const sale = manager.create(Sale, {
                 saleCode,
                 date: new Date(),
@@ -43,8 +44,12 @@ export class SalesService {
                 total: 0,
             });
 
+            // Guardar la venta para obtener el ID
+            const savedSale = await manager.save(Sale, sale);
+
             let subtotal = 0;
             let totalIva = 0;
+            const saleItems: SaleItem[] = [];
 
             // Procesar items de la venta
             for (const itemDto of createSaleDto.items) {
@@ -62,7 +67,7 @@ export class SalesService {
                 totalIva += itemIva;
 
                 const saleItem = manager.create(SaleItem, {
-                    sale,
+                    saleId: savedSale.id,
                     productId: product.id,
                     productName: product.name,
                     iva: product.iva,
@@ -72,16 +77,31 @@ export class SalesService {
                     totalPrice: itemTotal + itemIva,
                 });
 
-                sale.items = sale.items || [];
-                sale.items.push(saleItem);
+                saleItems.push(saleItem);
             }
 
-            // Calcular totales
-            sale.subtotal = subtotal;
-            sale.iva = totalIva;
-            sale.total = subtotal + totalIva;
+            // Guardar todos los items
+            await manager.save(SaleItem, saleItems);
 
-            return await manager.save(sale);
+            // Actualizar la venta con los totales calculados
+            savedSale.subtotal = subtotal;
+            savedSale.iva = totalIva;
+            savedSale.total = subtotal + totalIva;
+
+            // Guardar la venta actualizada
+            const finalSale = await manager.save(Sale, savedSale);
+
+            // Cargar relaciones para retornar
+            const saleWithRelations = await manager.findOne(Sale, {
+                where: { id: finalSale.id },
+                relations: ['client', 'user', 'items']
+            });
+
+            if (!saleWithRelations) {
+                throw new NotFoundException('Error al cargar la venta con relaciones');
+            }
+
+            return saleWithRelations;
         });
     }
 
@@ -104,8 +124,6 @@ export class SalesService {
     }
 
     async update(id: number, updateSaleDto: UpdateSaleDto): Promise<Sale> {
-        // Para actualizar una venta, podríamos necesitar una lógica más compleja
-        // Por ahora lanzamos error ya que las ventas normalmente no se editan
         throw new Error('La actualización de ventas no está implementada. Cree una nueva venta.');
     }
 

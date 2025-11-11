@@ -33,6 +33,7 @@ export class PurchasesService {
             // Generar código de compra
             const purchaseCode = this.generatePurchaseCode();
 
+            // Crear la compra primero para obtener el ID
             const purchase = manager.create(Purchase, {
                 purchaseCode,
                 providerId: createPurchaseDto.providerId,
@@ -42,8 +43,12 @@ export class PurchasesService {
                 total: 0,
             });
 
+            // Guardar la compra para obtener el ID
+            const savedPurchase = await manager.save(Purchase, purchase);
+
             let subtotal = 0;
             let totalIva = 0;
+            const purchaseItems: PurchaseItem[] = [];
 
             // Procesar items de la compra
             for (const itemDto of createPurchaseDto.items) {
@@ -61,7 +66,7 @@ export class PurchasesService {
                 totalIva += itemIva;
 
                 const purchaseItem = manager.create(PurchaseItem, {
-                    purchase,
+                    purchaseId: savedPurchase.id,
                     productId: product.id,
                     productName: product.name,
                     iva: itemDto.iva,
@@ -71,16 +76,31 @@ export class PurchasesService {
                     totalPrice: itemTotal + itemIva,
                 });
 
-                purchase.items = purchase.items || [];
-                purchase.items.push(purchaseItem);
+                purchaseItems.push(purchaseItem);
             }
 
-            // Calcular totales
-            purchase.subtotal = subtotal;
-            purchase.iva = totalIva;
-            purchase.total = subtotal + totalIva;
+            // Guardar todos los items
+            await manager.save(PurchaseItem, purchaseItems);
 
-            return await manager.save(purchase);
+            // Actualizar la compra con los totales calculados
+            savedPurchase.subtotal = subtotal;
+            savedPurchase.iva = totalIva;
+            savedPurchase.total = subtotal + totalIva;
+
+            // Guardar la compra actualizada
+            const finalPurchase = await manager.save(Purchase, savedPurchase);
+
+            // Cargar relaciones para retornar
+            const purchaseWithRelations = await manager.findOne(Purchase, {
+                where: { id: finalPurchase.id },
+                relations: ['provider', 'user', 'items']
+            });
+
+            if (!purchaseWithRelations) {
+                throw new NotFoundException('Error al cargar la compra con relaciones');
+            }
+
+            return purchaseWithRelations;
         });
     }
 
@@ -103,7 +123,6 @@ export class PurchasesService {
     }
 
     async update(id: number, updatePurchaseDto: UpdatePurchaseDto): Promise<Purchase> {
-        // Implementar lógica de actualización si es necesario
         throw new Error('Method not implemented');
     }
 
