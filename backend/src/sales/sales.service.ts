@@ -6,6 +6,7 @@ import { SaleItem } from '../entities/sale-item.entity';
 import { Product } from '../entities/product.entity';
 import { Client } from '../entities/client.entity';
 import { CreateSaleDto } from './dto/create-sale.dto';
+import { UpdateSaleDto } from './dto/update-sale.dto';
 
 @Injectable()
 export class SalesService {
@@ -34,9 +35,9 @@ export class SalesService {
 
             const sale = manager.create(Sale, {
                 saleCode,
+                date: new Date(),
                 clientId: createSaleDto.clientId,
                 userId,
-                date: new Date(),
                 subtotal: 0,
                 iva: 0,
                 total: 0,
@@ -100,6 +101,17 @@ export class SalesService {
             throw new NotFoundException('Venta no encontrada');
         }
         return sale;
+    }
+
+    async update(id: number, updateSaleDto: UpdateSaleDto): Promise<Sale> {
+        // Para actualizar una venta, podríamos necesitar una lógica más compleja
+        // Por ahora lanzamos error ya que las ventas normalmente no se editan
+        throw new Error('La actualización de ventas no está implementada. Cree una nueva venta.');
+    }
+
+    async remove(id: number): Promise<void> {
+        const sale = await this.findOne(id);
+        await this.salesRepository.remove(sale);
     }
 
     private generateSaleCode(): string {
