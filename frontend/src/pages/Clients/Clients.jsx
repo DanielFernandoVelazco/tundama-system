@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { clientService } from '../../services/clientService';
 import './Clients.css';
+import LogoImage from '../../img/logo.png';
+import CustomerIcon from '../../img/customer_icon.png';
 
 const Clients = () => {
     const navigate = useNavigate();
@@ -117,11 +119,11 @@ const Clients = () => {
         <div className="container client-module-container">
             <div className="header">
                 <div className="header-left">
-                    <img src="/img/logo.png" alt="Logo" className="header-logo" />
+                    <img src={LogoImage} alt="Logo" className="header-logo" />
                     <h1>CARLOS MODULO CLIENTE</h1>
                 </div>
                 <div className="header-right">
-                    <img src="/img/customer_icon.png" alt="Cliente" className="header-icon" />
+                    <img src={CustomerIcon} alt="Cliente" className="header-icon" />
                     <span className="version">VERSION 1.0</span>
                     <button
                         className="button button-regresar"
