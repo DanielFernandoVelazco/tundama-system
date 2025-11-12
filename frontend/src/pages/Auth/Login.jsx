@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
+import LogoImage from '../../img/logo.png';
+import UserIcon from '../../img/user_icon.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -31,13 +33,13 @@ const Login = () => {
     return (
         <div className="login-container">
             <div className="login-header">
-                <img src="/img/logo.png" alt="Logo" className="login-logo" />
+                <img src={LogoImage} alt="Logo" className="login-logo" />
                 <h1>BIENVENIDO AL MODULO DE NEGOCIO TUNDAMA LTDA</h1>
             </div>
 
             <div className="login-content">
                 <div className="login-form-row">
-                    <img src="/img/user_icon.png" alt="Usuario" className="login-user-icon" />
+                    <img src={UserIcon} alt="Usuario" className="login-user-icon" />
                     <div className="login-input-group">
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
