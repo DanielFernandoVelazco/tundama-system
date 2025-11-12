@@ -1,7 +1,9 @@
-import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Menu.css';
+import LogoImage from '../../img/logo.png';
+import UserIcon from '../../img/user_icon.png';
+import UserFigure from '../../img/user_figure.png';
 
 const Menu = () => {
     const { user, logout } = useAuth();
@@ -23,11 +25,11 @@ const Menu = () => {
         <div className="menu-container">
             <div className="header">
                 <div className="header-left">
-                    <img src="/img/logo.png" alt="Logo" className="header-logo" />
+                    <img src={LogoImage} alt="Logo" className="header-logo" />
                     <h1>BIENVENIDO - CARLOS ELIGE UNA OPCION</h1>
                 </div>
                 <div className="header-right">
-                    <img src="/img/user_icon.png" alt="Usuario" className="header-icon" />
+                    <img src={UserIcon} alt="Usuario" className="header-icon" />
                     <span className="version">VERSION 1.0</span>
                     <button className="button button-regresar" onClick={handleLogout}>
                         SALIR
@@ -49,10 +51,11 @@ const Menu = () => {
                 </div>
 
                 <div className="main-menu-right-panel">
-                    <img src="/img/user_figure.png" alt="Figura de usuario" className="user-figure" />
+                    <img src={UserFigure} alt="Figura de usuario" className="user-figure" />
                     <div className="whiteboard">
                         <p>Bienvenido: {user?.name}</p>
                         <p>Email: {user?.email}</p>
+                        <p>Notas: {user?.notes}</p>
                     </div>
                 </div>
             </div>
