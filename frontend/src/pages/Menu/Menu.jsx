@@ -17,6 +17,7 @@ const Menu = () => {
     const menuOptions = [
         { path: '/clients', label: 'REGISTRAR CLIENTE' },
         { path: '/providers', label: 'REGISTRAR PROVEEDOR' },
+        { path: '/products', label: 'REGISTRAR PRODUCTOS' },
         { path: '/sales', label: 'REGISTRAR VENTAS' },
         { path: '/purchases', label: 'REGISTRAR COMPRAS' },
     ];
