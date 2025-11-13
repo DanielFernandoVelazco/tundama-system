@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { providerService } from '../../services/providerService';
 import './Providers.css';
+import LogoImage from '../../img/logo.png';
+import PurchasIcon from '../../img/purchases_icon.png';
 
 const Providers = () => {
     const navigate = useNavigate();
@@ -114,11 +116,11 @@ const Providers = () => {
         <div className="container sales-purchases-module-container">
             <div className="header">
                 <div className="header-left">
-                    <img src="/img/logo.png" alt="Logo" className="header-logo" />
+                    <img src={LogoImage} alt="Logo" className="header-logo" />
                     <h1>CARLOS MODULO PROVEEDOR</h1>
                 </div>
                 <div className="header-right">
-                    <img src="/img/delivery_icon.png" alt="Proveedor" className="header-icon" />
+                    <img src={PurchasIcon} alt="Proveedor" className="header-icon" />
                     <span className="version">VERSION 1.0</span>
                     <button
                         className="button button-regresar"
