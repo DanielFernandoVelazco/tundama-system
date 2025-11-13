@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { productService } from '../../services/productService';
 import './Products.css';
+import LogoImage from '../../img/logo.png';
+import SalesImage from '../../img/sales_icon.png';
 
 const Products = () => {
     const navigate = useNavigate();
@@ -137,11 +139,11 @@ const Products = () => {
         <div className="container sales-purchases-module-container">
             <div className="header">
                 <div className="header-left">
-                    <img src="/img/logo.png" alt="Logo" className="header-logo" />
+                    <img src={LogoImage} alt="Logo" className="header-logo" />
                     <h1>CARLOS MODULO PRODUCTOS</h1>
                 </div>
                 <div className="header-right">
-                    <img src="/img/sales_icon.png" alt="Productos" className="header-icon" />
+                    <img src={SalesImage} alt="Productos" className="header-icon" />
                     <span className="version">VERSION 1.0</span>
                     <button
                         className="button button-regresar"
