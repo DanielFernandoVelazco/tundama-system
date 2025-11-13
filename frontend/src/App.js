@@ -9,6 +9,7 @@ import Providers from './pages/Providers/Providers';
 import Sales from './pages/Sales/Sales';
 import Purchases from './pages/Purchases/Purchases';
 import SignUp from './pages/SignUp/SignUp';
+import Products from './pages/Products/Products';
 import './App.css';
 
 function App() {
@@ -56,6 +57,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Purchases />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/products"
+              element={
+                <ProtectedRoute>
+                  <Products />
                 </ProtectedRoute>
               }
             />
