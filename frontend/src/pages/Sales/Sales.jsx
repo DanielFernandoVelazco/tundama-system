@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saleService } from '../../services/saleService';
 import { clientService } from '../../services/clientService';
 import { productService } from '../../services/productService';
 import './Sales.css';
+import LogoImage from '../../img/logo.png';
+import SaleImage from '../../img/sales_icon.png';
 
 const Sales = () => {
     const navigate = useNavigate();
@@ -205,11 +207,11 @@ const Sales = () => {
         <div className="container sales-purchases-module-container">
             <div className="header">
                 <div className="header-left">
-                    <img src="/img/logo.png" alt="Logo" className="header-logo" />
+                    <img src={LogoImage} alt="Logo" className="header-logo" />
                     <h1>CARLOS MODULO VENTAS</h1>
                 </div>
                 <div className="header-right">
-                    <img src="/img/sales_icon.png" alt="Ventas" className="header-icon" />
+                    <img src={SaleImage} alt="Ventas" className="header-icon" />
                     <span className="version">VERSION 1.0</span>
                     <button
                         className="button button-regresar"
