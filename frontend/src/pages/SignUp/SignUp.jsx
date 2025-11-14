@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { userService } from '../../services/userService';
+import { authService } from '../../services/authService'; // ← Cambiar a authService
 import './SignUp.css';
 
 const SignUp = () => {
@@ -52,7 +52,8 @@ const SignUp = () => {
             // Preparar datos para enviar (sin confirmPassword)
             const { confirmPassword, ...userData } = formData;
 
-            await userService.create(userData);
+            // Usar authService.signup en lugar de userService.create
+            await authService.signup(userData);
             setSuccess('Usuario registrado correctamente. Ahora puedes iniciar sesión.');
 
             // Limpiar formulario después de éxito
