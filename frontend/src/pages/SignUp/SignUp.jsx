@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/authService'; // ← Cambiar a authService
 import './SignUp.css';
+import LogoImage from '../../img/logo.png';
+import UserImage from '../../img/user_icon.png';
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -102,11 +104,11 @@ const SignUp = () => {
         <div className="container client-module-container">
             <div className="header">
                 <div className="header-left">
-                    <img src="/img/logo.png" alt="Logo" className="header-logo" />
+                    <img src={LogoImage} alt="Logo" className="header-logo" />
                     <h1>CARLOS MODULO SINGUP</h1>
                 </div>
                 <div className="header-right">
-                    <img src="/img/user_icon.png" alt="Usuario" className="header-icon" />
+                    <img src={UserImage} alt="Usuario" className="header-icon" />
                     <span className="version">VERSION 1.0</span>
                     <Link to="/login" className="button button-regresar">
                         REGRESAR
