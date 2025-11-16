@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { providerService } from '../../services/providerService';
 import './Providers.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import PurchasIcon from '../../img/purchases_icon.png';
 
@@ -113,17 +114,17 @@ const Providers = () => {
     };
 
     return (
-        <div className="container sales-purchases-module-container">
+        <div className="module-container">
             <div className="header">
                 <div className="header-left">
                     <img src={LogoImage} alt="Logo" className="header-logo" />
-                    <h1>CARLOS MODULO PROVEEDOR</h1>
+                    <h1>MODULO PROVEEDOR</h1>
                 </div>
                 <div className="header-right">
                     <img src={PurchasIcon} alt="Proveedor" className="header-icon" />
-                    <span className="version">VERSION 1.0</span>
+                    <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar"
+                        className="button button-regresar-menu"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -137,7 +138,7 @@ const Providers = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group-providers">
                         <label htmlFor="companyName">NOMBRE EMPRESA</label>
                         <input
                             type="text"
@@ -149,7 +150,7 @@ const Providers = () => {
                         />
                     </div>
 
-                    <div className="form-group type-selector">
+                    <div className="form-group-providers type-selector">
                         <label htmlFor="identification"># IDENTIFICACIÓN</label>
                         <input
                             type="text"
@@ -161,11 +162,11 @@ const Providers = () => {
                             className="medium-input"
                         />
                         <div className="radio-group">
-                            <span className="radio-label">NIT</span>
+                            <span className="radio-label-providers">NIT</span>
                         </div>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-providers">
                         <label htmlFor="address">DIRECCIÓN</label>
                         <input
                             type="text"
@@ -177,7 +178,7 @@ const Providers = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-providers">
                         <label htmlFor="phone">TELÉFONO</label>
                         <input
                             type="text"
@@ -189,7 +190,7 @@ const Providers = () => {
                         />
                     </div>
 
-                    <div className="form-group full-width-textarea">
+                    <div className="form-group-providers full-width-textarea-providers">
                         <label htmlFor="notes">NOTAS</label>
                         <textarea
                             id="notes"
