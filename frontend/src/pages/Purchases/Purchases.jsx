@@ -4,6 +4,7 @@ import { purchaseService } from '../../services/purchaseService';
 import { providerService } from '../../services/providerService';
 import { productService } from '../../services/productService';
 import './Purchases.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import CustomerImage from '../../img/customer_icon.png';
 
@@ -212,17 +213,17 @@ const Purchases = () => {
     };
 
     return (
-        <div className="container sales-purchases-module-container">
+        <div className="module-container">
             <div className="header">
                 <div className="header-left">
                     <img src={LogoImage} alt="Logo" className="header-logo" />
-                    <h1>CARLOS MODULO COMPRAS</h1>
+                    <h1>MODULO COMPRAS</h1>
                 </div>
                 <div className="header-right">
                     <img src={CustomerImage} alt="Compras" className="header-icon" />
-                    <span className="version">VERSION 1.0</span>
+                    <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar"
+                        className="button button-regresar-menu"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -246,11 +247,11 @@ const Purchases = () => {
                             readOnly
                             className="read-only-input small-input"
                         />
-                        <span className="info-text">(Código Compras)</span>
+                        <span className="info-text-purchases">(Código Compras)</span>
                     </div>
 
-                    <div className="sales-purchases-layout">
-                        <div className="form-group">
+                    <div className="sales-purchases-layout-purchases">
+                        <div className="form-group-purchases">
                             <label htmlFor="id_comprador">ID COMPRADOR</label>
                             <input
                                 type="text"
@@ -261,7 +262,7 @@ const Purchases = () => {
                             />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group-purchases">
                             <label htmlFor="providerId"># NIT VENDEDOR</label>
                             <select
                                 id="providerId"
@@ -280,16 +281,7 @@ const Purchases = () => {
                             </select>
                         </div>
 
-                        <div className="button-row">
-                            <button type="button" className="button primary small-button">
-                                NUEVO
-                            </button>
-                            <button type="button" className="button primary small-button">
-                                REGISTRAR
-                            </button>
-                        </div>
-
-                        <div className="form-group full-width">
+                        <div className="form-group-purchases full-width">
                             <input
                                 type="text"
                                 id="nombre_proveedor_compra"
@@ -302,7 +294,7 @@ const Purchases = () => {
                     </div>
 
                     {/* Agregar productos */}
-                    <div className="form-group product-details-group">
+                    <div className="form-group-purchases product-details-group">
                         <label htmlFor="productId">NOMBRE PRODUCTO</label>
                         <select
                             id="productId"
@@ -319,7 +311,7 @@ const Purchases = () => {
                             ))}
                         </select>
 
-                        <label htmlFor="quantity" className="label-inline">CANTIDAD</label>
+                        <label htmlFor="quantity" className="label-inline-purchases">CANTIDAD</label>
                         <input
                             type="number"
                             id="quantity"
@@ -331,7 +323,7 @@ const Purchases = () => {
                         />
                     </div>
 
-                    <div className="form-group product-detail-actions">
+                    <div className="form-group-purchases product-detail-actions">
                         <input
                             type="text"
                             value={currentItem.productId ? getProductDetails(currentItem.productId)?.description || '' : ''}
@@ -340,7 +332,7 @@ const Purchases = () => {
                             className="full-width-input"
                         />
 
-                        <div className="price-inputs">
+                        <div className="price-inputs-purchases">
                             <label>PRECIO UNITARIO</label>
                             <input
                                 type="number"
@@ -427,15 +419,15 @@ const Purchases = () => {
                     )}
 
                     {/* Totales */}
-                    <div className="price-iva-total">
+                    <div className="price-iva-total-purchases">
                         <span>SUBTOTAL: <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input" /></span>
                         <span>IVA: <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input" /></span>
-                        <span className="total-amount">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
+                        <span className="total-amount-purchases">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
                     </div>
 
                     {/* Botones de acción */}
-                    <div className="bottom-actions-row">
-                        <div className="button-group">
+                    <div className="bottom-actions-row-purchases">
+                        <div className="button-group-purchases">
                             <button type="submit" className="button primary">
                                 COMPRAR
                             </button>
@@ -452,10 +444,10 @@ const Purchases = () => {
                             </button>
                         </div>
 
-                        <div className="totals-summary">
-                            <div>SUB TOTAL <span>$ <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input" /></span></div>
-                            <div>IVA <span>$ <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input" /></span></div>
-                            <div className="total-amount">TOTAL <span>$ <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span></div>
+                        <div className="totals-summary-purchases">
+                            <div>SUB TOTAL <span>$ <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input-purchases" /></span></div>
+                            <div>IVA <span>$ <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input-purchases" /></span></div>
+                            <div className="total-amount-purchases">TOTAL <span>$ <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input-purchases" /></span></div>
                         </div>
                     </div>
                 </form>
