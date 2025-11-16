@@ -1,91 +1,93 @@
 .client-module-container {
-    max-width: 900px;
+    max-width: 800px;
     margin: 20px auto;
-}
-
-.form-area {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
     width: 100%;
 }
 
-.form-group label {
-    width: 200px;
+.form-group-signup {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+
+.form-group-signup label {
+    width: 160px;
+    min-width: 120px;
     text-align: right;
     margin-right: 15px;
     font-weight: bold;
     color: #555;
-    min-width: 150px;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
+.form-group-signup input[type="text"],
+.form-group-signup input[type="password"],
+.form-group-signup input[type="email"],
+.form-group-signup textarea {
     flex-grow: 1;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     max-width: 450px;
 }
 
-.form-group input.read-only-input {
+.form-group-signup input.read-only-input {
     background-color: #f0f0f0;
     color: #666;
     cursor: default;
     border: 1px dashed #bbb;
 }
 
-.form-group input.small-input {
+.form-group-signup input.small-input {
     max-width: 150px;
 }
 
-.form-group input.medium-input {
+.form-group-signup input.medium-input {
     max-width: 250px;
 }
 
-.form-group input.full-width-input {
+.form-group-signup input.full-width-input {
     max-width: none;
     width: 100%;
 }
 
-.form-group textarea {
+.form-group-signup textarea {
     resize: vertical;
     min-height: 80px;
+    max-width: none;
+    width: 100%;
 }
 
-.info-text {
-    font-size: 14px;
-    color: #888;
-    margin-left: 10px;
-}
-
-/* Radio group para tipo de identificación */
-.form-group.type-selector {
+/* Estilos específicos para el grupo de tipo selector */
+.form-group-signup.type-selector {
     align-items: center;
 }
 
-.radio-group {
+/* Estilos para textarea de ancho completo */
+.form-group-signup.full-width-textarea-signup {
+    align-items: flex-start;
+}
+
+.form-group-signup.full-width-textarea-signup label {
+    margin-top: 10px;
+}
+
+/* Radio group styles para SignUp */
+.form-group-signup .radio-group {
     display: flex;
     align-items: center;
     gap: 20px;
     margin-left: 20px;
 }
 
-.radio-group input[type="radio"] {
+.form-group-signup .radio-group input[type="radio"] {
     display: none;
 }
 
-.radio-group label {
+.form-group-signup .radio-group label {
     position: relative;
     cursor: pointer;
     padding-left: 30px;
@@ -97,7 +99,7 @@
     margin-right: 0;
 }
 
-.radio-group label::before {
+.form-group-signup .radio-group label::before {
     content: '';
     position: absolute;
     left: 0;
@@ -111,12 +113,12 @@
     transition: all 0.2s ease;
 }
 
-.radio-group input[type="radio"]:checked+label::before {
+.form-group-signup .radio-group input[type="radio"]:checked+label::before {
     background-color: #3ABDBF;
     border-color: #3ABDBF;
 }
 
-.radio-group input[type="radio"]:checked+label::after {
+.form-group-signup .radio-group input[type="radio"]:checked+label::after {
     content: '';
     position: absolute;
     left: 7px;
@@ -128,110 +130,80 @@
     border-radius: 50%;
 }
 
-.full-width-textarea {
-    align-items: flex-start;
+/* Info text */
+.info-text {
+    font-size: 14px;
+    color: #888;
+    margin-left: 10px;
 }
 
-.full-width-textarea label {
-    margin-top: 10px;
-}
-
-/* Botones */
-.button-group {
+/* Button group para SignUp */
+.button-group-signup {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin-top: 30px;
+    width: 100%;
     padding-top: 20px;
     border-top: 1px solid #eee;
 }
 
-.button.primary {
-    background-color: #28a745;
-}
-
-.button.primary:hover {
-    background-color: #218838;
-}
-
-.button.primary:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-}
-
-.button.secondary {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.button.secondary:hover {
-    background-color: #e0a800;
-}
-
-.button.button-regresar {
+/* Botón regresar específico para SignUp */
+.button-regresar-signup {
     margin-left: 30px;
     padding: 10px 20px;
     font-size: 16px;
     text-decoration: none;
-}
-
-/* Mensajes */
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 15px;
+    background-color: #3ABDBF;
+    color: white;
+    border: none;
     border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
     font-weight: bold;
-}
-
-.success-message {
-    background-color: #d4edda;
-    color: #155724;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    display: inline-block;
     text-align: center;
-    font-weight: bold;
 }
 
-.footer-info {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
-    color: #555;
+.button-regresar-signup:hover {
+    background-color: #2CA7A9;
 }
 
-.footer-info p {
-    margin: 5px 0;
-}
-
-/* Responsive */
+/* Responsive styles */
 @media (max-width: 768px) {
-    .form-group {
+    .client-module-container {
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .form-group-signup {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
     }
 
-    .form-group label {
+    .form-group-signup label {
         text-align: left;
         width: 100%;
         margin-right: 0;
+        min-width: auto;
     }
 
-    .form-group input,
-    .form-group textarea {
+    .form-group-signup input[type="text"],
+    .form-group-signup input[type="password"],
+    .form-group-signup input[type="email"],
+    .form-group-signup textarea {
         width: 100%;
         max-width: none;
     }
 
-    .form-group.type-selector {
-        align-items: flex-start;
+    .form-group-signup input.small-input,
+    .form-group-signup input.medium-input {
+        width: 100%;
+        max-width: none;
     }
 
-    .radio-group {
+    .form-group-signup .radio-group {
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
@@ -239,23 +211,19 @@
         gap: 10px;
     }
 
-    .button-group {
+    .form-group-signup.type-selector {
+        align-items: flex-start;
+    }
+
+    .button-group-signup {
         flex-direction: column;
         align-items: center;
         gap: 15px;
     }
 
-    .header {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
-    .header h1 {
-        font-size: 18px;
-    }
-
-    .header-right {
-        justify-content: center;
+    .button-regresar-signup {
+        margin-left: 0;
+        width: 100%;
+        max-width: 250px;
     }
 }
