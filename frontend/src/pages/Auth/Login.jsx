@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import UserIcon from '../../img/user_icon.png';
 
@@ -71,7 +72,6 @@ const Login = () => {
                                 <button type="submit" className="button" disabled={loading}>
                                     {loading ? 'CARGANDO...' : 'INGRESAR'}
                                 </button>
-                                <button type="button" className="button">CANCELAR</button>
                                 <Link to="/signup" className="button">SIGN UP</Link>
                             </div>
                         </form>
