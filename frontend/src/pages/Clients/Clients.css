@@ -1,25 +1,26 @@
-.client-module-container {
-    max-width: 70%;
-    margin: 20px auto;
-}
+/* Clients.css */
 
-.form-area {
-    background-color: white;
+.client-module-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 20px auto;
+    background-color: #E0E0E0;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
+/* Usar las clases estándar del shared-styles en lugar de específicas */
+.form-group-clients {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     width: 100%;
+    font-size: 18px;
 }
 
-.form-group label {
-    width: 160px;
+.form-group-clients label {
+    width: 200px;
     text-align: right;
     margin-right: 15px;
     font-weight: bold;
@@ -27,233 +28,96 @@
     min-width: 120px;
 }
 
-.form-group input,
-.form-group textarea {
+.form-group-clients input,
+.form-group-clients textarea {
     flex-grow: 1;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     max-width: 450px;
 }
 
-.form-group textarea {
+.form-group-clients textarea {
     resize: vertical;
     min-height: 80px;
+    max-width: none;
+    width: 100%;
 }
 
-.form-group.type-selector {
+/* Alineación específica para el grupo de tipo selector */
+.form-group-clients.type-selector {
     align-items: center;
 }
 
-.medium-input {
-    max-width: 250px !important;
+.form-group-clients.type-selector input.medium-input {
+    max-width: 250px;
 }
 
-.radio-group {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-left: 20px;
-}
-
-.radio-group input[type="radio"] {
-    display: none;
-}
-
-.radio-group label {
-    position: relative;
-    cursor: pointer;
-    padding-left: 30px;
-    font-weight: normal;
-    color: #555;
-    text-align: left;
-    width: auto;
-    min-width: auto;
-}
-
-.radio-group label::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    border: 2px solid #3ABDBF;
-    border-radius: 50%;
-    background-color: #fff;
-    transition: all 0.2s ease;
-}
-
-.radio-group input[type="radio"]:checked+label::before {
-    background-color: #3ABDBF;
-    border-color: #3ABDBF;
-}
-
-.radio-group input[type="radio"]:checked+label::after {
-    content: '';
-    position: absolute;
-    left: 7px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background-color: #fff;
-    border-radius: 50%;
-}
-
-.full-width-textarea {
+/* Textarea de ancho completo */
+.form-group-clients.full-width-textarea-clients {
     align-items: flex-start;
 }
 
-.full-width-textarea label {
+.form-group-clients.full-width-textarea-clients label {
     margin-top: 10px;
 }
 
-.button-group {
+/* Grupo de botones corregido */
+.button-group-clients {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin-top: 30px;
+    width: 100%;
     padding-top: 20px;
     border-top: 1px solid #eee;
 }
 
-.button.primary {
-    background-color: #28a745;
-}
-
-.button.primary:hover {
-    background-color: #218838;
-}
-
-.button.secondary {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.button.secondary:hover {
-    background-color: #e0a800;
-}
-
-.button.danger {
-    background-color: #dc3545;
-}
-
-.button.danger:hover {
-    background-color: #c82333;
-}
-
-.button.small-button {
-    padding: 8px 15px;
-    font-size: 14px;
-    margin: 0 5px;
-}
-
+/* Lista de clientes */
 .clients-list {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
 }
 
 .clients-list h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
-}
-
-.data-table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.data-table th,
-.data-table td {
-    border: 1px solid #ddd;
-    padding: 12px 15px;
-    text-align: left;
-    font-size: 14px;
-}
-
-.data-table th {
-    background-color: #eee;
-    font-weight: bold;
     text-transform: uppercase;
-    color: #333;
 }
 
-.data-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.data-table tr:hover {
-    background-color: #f5f5f5;
-}
-
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.success-message {
-    background-color: #d4edda;
-    color: #155724;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.loading {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-    font-style: italic;
-}
-
-.no-data {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-    font-style: italic;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-    .form-group {
+    .client-module-container {
+        margin: 10px;
+        padding: 20px;
+        max-width: none;
+    }
+
+    .form-group-clients {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
     }
 
-    .form-group label {
+    .form-group-clients label {
         text-align: left;
         width: 100%;
         margin-right: 0;
     }
 
-    .form-group input,
-    .form-group textarea {
+    .form-group-clients input,
+    .form-group-clients textarea {
         width: 100%;
         max-width: none;
     }
 
-    .radio-group {
+    .form-group-clients.type-selector .radio-group {
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
@@ -261,22 +125,13 @@
         gap: 10px;
     }
 
-    .button-group {
+    .button-group-clients {
         flex-direction: column;
         align-items: center;
         gap: 15px;
     }
 
-    .data-table-container {
-        overflow-x: auto;
-    }
-
-    .data-table {
-        font-size: 12px;
-    }
-
-    .data-table th,
-    .data-table td {
-        padding: 8px 10px;
+    .clients-list {
+        padding: 20px;
     }
 }
