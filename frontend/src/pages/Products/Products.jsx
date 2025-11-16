@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { productService } from '../../services/productService';
 import './Products.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import SalesImage from '../../img/sales_icon.png';
 
@@ -136,17 +137,17 @@ const Products = () => {
     };
 
     return (
-        <div className="container sales-purchases-module-container">
+        <div className="module-container">
             <div className="header">
                 <div className="header-left">
                     <img src={LogoImage} alt="Logo" className="header-logo" />
-                    <h1>CARLOS MODULO PRODUCTOS</h1>
+                    <h1>MODULO PRODUCTOS</h1>
                 </div>
                 <div className="header-right">
                     <img src={SalesImage} alt="Productos" className="header-icon" />
-                    <span className="version">VERSION 1.0</span>
+                    <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar"
+                        className="button button-regresar-menu"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -160,7 +161,7 @@ const Products = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group-products">
                         <label htmlFor="name">NOMBRE PRODUCTO</label>
                         <input
                             type="text"
@@ -172,7 +173,7 @@ const Products = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-products">
                         <label htmlFor="unitPrice">PRECIO UNITARIO</label>
                         <input
                             type="number"
@@ -187,7 +188,7 @@ const Products = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-products">
                         <label htmlFor="iva">IVA %</label>
                         <select
                             id="iva"
@@ -203,7 +204,7 @@ const Products = () => {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-products">
                         <label htmlFor="unit">UNIDAD</label>
                         <select
                             id="unit"
@@ -222,7 +223,7 @@ const Products = () => {
                         </select>
                     </div>
 
-                    <div className="form-group full-width-textarea">
+                    <div className="form-group-products full-width-textarea-products">
                         <label htmlFor="description">DESCRIPCIÓN</label>
                         <textarea
                             id="description"
