@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { clientService } from '../../services/clientService';
 import './Clients.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import CustomerIcon from '../../img/customer_icon.png';
 
@@ -116,17 +117,17 @@ const Clients = () => {
     };
 
     return (
-        <div className="container client-module-container">
+        <div className="module-container">
             <div className="header">
                 <div className="header-left">
                     <img src={LogoImage} alt="Logo" className="header-logo" />
-                    <h1>CARLOS MODULO CLIENTE</h1>
+                    <h1>MODULO CLIENTE</h1>
                 </div>
                 <div className="header-right">
                     <img src={CustomerIcon} alt="Cliente" className="header-icon" />
-                    <span className="version">VERSION 1.0</span>
+                    <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar"
+                        className="button button-regresar-menu"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -140,7 +141,7 @@ const Clients = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group-clients">
                         <label htmlFor="name">NOMBRE</label>
                         <input
                             type="text"
@@ -152,7 +153,7 @@ const Clients = () => {
                         />
                     </div>
 
-                    <div className="form-group type-selector">
+                    <div className="form-group-clients type-selector">
                         <label htmlFor="identification"># IDENTIFICACIÓN</label>
                         <input
                             type="text"
@@ -185,7 +186,7 @@ const Clients = () => {
                         </div>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-clients">
                         <label htmlFor="address">DIRECCIÓN</label>
                         <input
                             type="text"
@@ -197,7 +198,7 @@ const Clients = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-clients">
                         <label htmlFor="phone">TELÉFONO</label>
                         <input
                             type="text"
@@ -209,7 +210,7 @@ const Clients = () => {
                         />
                     </div>
 
-                    <div className="form-group full-width-textarea">
+                    <div className="form-group-clients full-width-textarea-clients">
                         <label htmlFor="notes">NOTAS</label>
                         <textarea
                             id="notes"
@@ -220,7 +221,7 @@ const Clients = () => {
                         />
                     </div>
 
-                    <div className="button-group">
+                    <div className="button-group-clients">
                         <button type="submit" className="button primary">
                             {editingId ? 'ACTUALIZAR' : 'REGISTRAR'}
                         </button>
