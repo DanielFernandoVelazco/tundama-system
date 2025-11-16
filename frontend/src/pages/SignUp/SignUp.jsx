@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/authService'; // ← Cambiar a authService
 import './SignUp.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import UserImage from '../../img/user_icon.png';
 
@@ -101,16 +102,16 @@ const SignUp = () => {
     };
 
     return (
-        <div className="container client-module-container">
+        <div className="module-container">
             <div className="header">
                 <div className="header-left">
                     <img src={LogoImage} alt="Logo" className="header-logo" />
-                    <h1>CARLOS MODULO SINGUP</h1>
+                    <h1>MODULO SINGUP</h1>
                 </div>
                 <div className="header-right">
                     <img src={UserImage} alt="Usuario" className="header-icon" />
-                    <span className="version">VERSION 1.0</span>
-                    <Link to="/login" className="button button-regresar">
+                    <span className="version-menu">VERSION 1.0</span>
+                    <Link to="/login" className="button button-regresar-signup">
                         REGRESAR
                     </Link>
                 </div>
@@ -122,7 +123,7 @@ const SignUp = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group-signup">
                         <label htmlFor="id_usuario">ID_U</label>
                         <input
                             type="text"
@@ -134,7 +135,7 @@ const SignUp = () => {
                         <span className="info-text">(Código Usuario)</span>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-signup">
                         <label htmlFor="name">NOMBRE</label>
                         <input
                             type="text"
@@ -147,7 +148,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group type-selector">
+                    <div className="form-group-signup type-selector">
                         <label htmlFor="identification"># IDENTIFICACIÓN</label>
                         <input
                             type="text"
@@ -180,7 +181,7 @@ const SignUp = () => {
                         </div>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-signup">
                         <label htmlFor="phone">TELÉFONO</label>
                         <input
                             type="text"
@@ -193,7 +194,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-signup">
                         <label htmlFor="address">DIRECCIÓN</label>
                         <input
                             type="text"
@@ -206,7 +207,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-signup">
                         <label htmlFor="email">E-MAIL</label>
                         <input
                             type="email"
@@ -219,7 +220,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-signup">
                         <label htmlFor="password">CONTRASEÑA</label>
                         <input
                             type="password"
@@ -233,7 +234,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group-signup">
                         <label htmlFor="confirmPassword">CONFIRMAR CONTRASEÑA</label>
                         <input
                             type="password"
@@ -247,7 +248,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group full-width-textarea">
+                    <div className="form-group-signup full-width-textarea-signup">
                         <label htmlFor="notes">NOTAS</label>
                         <textarea
                             id="notes"
@@ -258,7 +259,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="button-group">
+                    <div className="button-group-signup">
                         <button
                             type="submit"
                             className="button primary"
