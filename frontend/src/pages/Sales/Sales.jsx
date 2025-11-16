@@ -4,6 +4,7 @@ import { saleService } from '../../services/saleService';
 import { clientService } from '../../services/clientService';
 import { productService } from '../../services/productService';
 import './Sales.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import SaleImage from '../../img/sales_icon.png';
 
@@ -204,17 +205,17 @@ const Sales = () => {
     };
 
     return (
-        <div className="container sales-purchases-module-container">
+        <div className="module-container">
             <div className="header">
                 <div className="header-left">
                     <img src={LogoImage} alt="Logo" className="header-logo" />
-                    <h1>CARLOS MODULO VENTAS</h1>
+                    <h1>MODULO VENTAS</h1>
                 </div>
                 <div className="header-right">
                     <img src={SaleImage} alt="Ventas" className="header-icon" />
-                    <span className="version">VERSION 1.0</span>
+                    <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar"
+                        className="button button-regresar-menu"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -238,11 +239,11 @@ const Sales = () => {
                             readOnly
                             className="read-only-input small-input"
                         />
-                        <span className="info-text">(Código Ventas)</span>
+                        <span className="info-text-sales">(Código Ventas)</span>
                     </div>
 
-                    <div className="sales-purchases-layout">
-                        <div className="form-group">
+                    <div className="sales-purchases-layout-sales">
+                        <div className="form-group-sales">
                             <label htmlFor="fecha_venta">FECHA</label>
                             <input
                                 type="date"
@@ -253,7 +254,7 @@ const Sales = () => {
                             />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group-sales">
                             <label htmlFor="clientId">ID CLIENTE</label>
                             <select
                                 id="clientId"
@@ -272,7 +273,7 @@ const Sales = () => {
                             </select>
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group-sales">
                             <label htmlFor="nombre_cliente">NOMBRE CLIENTE</label>
                             <input
                                 type="text"
@@ -285,7 +286,7 @@ const Sales = () => {
                     </div>
 
                     {/* Agregar productos */}
-                    <div className="form-group product-details-group">
+                    <div className="form-group-sales product-details-group">
                         <label htmlFor="productId">ID PRODUCTO</label>
                         <select
                             id="productId"
@@ -302,7 +303,7 @@ const Sales = () => {
                             ))}
                         </select>
 
-                        <label htmlFor="quantity" className="label-inline">CANTIDAD</label>
+                        <label htmlFor="quantity" className="label-inline-sales">CANTIDAD</label>
                         <input
                             type="number"
                             id="quantity"
@@ -314,7 +315,7 @@ const Sales = () => {
                         />
                     </div>
 
-                    <div className="form-group product-detail-actions">
+                    <div className="form-group-sales product-detail-actions">
                         <input
                             type="text"
                             value={currentItem.productId ? getProductDetails(currentItem.productId)?.description || '' : ''}
@@ -383,15 +384,15 @@ const Sales = () => {
                     )}
 
                     {/* Totales */}
-                    <div className="price-iva-total">
+                    <div className="price-iva-total-sales">
                         <span>SUBTOTAL: <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input" /></span>
                         <span>IVA: <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input" /></span>
-                        <span className="total-amount">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
+                        <span className="total-amount-sales">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
                     </div>
 
                     {/* Botones de acción */}
-                    <div className="bottom-actions-row">
-                        <div className="button-group">
+                    <div className="bottom-actions-row-sales">
+                        <div className="button-group-sales">
                             <button type="submit" className="button primary">
                                 VENDER
                             </button>
