@@ -1,6 +1,7 @@
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Menu.css';
+import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
 import UserIcon from '../../img/user_icon.png';
 import UserFigure from '../../img/user_figure.png';
@@ -27,12 +28,12 @@ const Menu = () => {
             <div className="header">
                 <div className="header-left">
                     <img src={LogoImage} alt="Logo" className="header-logo" />
-                    <h1>BIENVENIDO - CARLOS ELIGE UNA OPCION</h1>
+                    <h1>BIENVENIDO - ELIGE UNA OPCION</h1>
                 </div>
                 <div className="header-right">
                     <img src={UserIcon} alt="Usuario" className="header-icon" />
-                    <span className="version">VERSION 1.0</span>
-                    <button className="button button-regresar" onClick={handleLogout}>
+                    <span className="version-menu">VERSION 1.0</span>
+                    <button className="button button-regresar-menu" onClick={handleLogout}>
                         SALIR
                     </button>
                 </div>
@@ -52,8 +53,8 @@ const Menu = () => {
                 </div>
 
                 <div className="main-menu-right-panel">
-                    <img src={UserFigure} alt="Figura de usuario" className="user-figure" />
-                    <div className="whiteboard">
+                    <img src={UserFigure} alt="Figura de usuario" className="user-figure-menu" />
+                    <div className="whiteboard-menu">
                         <p>Bienvenido: {user?.name}</p>
                         <p>Email: {user?.email}</p>
                         <p>Notas: {user?.notes}</p>
