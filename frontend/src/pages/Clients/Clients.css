@@ -1,16 +1,131 @@
-/* Clients.css */
+/* Clients.css - ESTILOS ESPECÍFICOS PARA EL COMPONENTE CLIENTS */
 
-.client-module-container {
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto;
-    background-color: #E0E0E0;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* Header de la lista de clientes */
+.clients-list-header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-/* Usar las clases estándar del shared-styles en lugar de específicas */
+.clients-list-header h2 {
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 24px;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.search-results-info {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+/* Columnas específicas de la tabla de clientes */
+.client-code {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.client-name {
+    color: #34495e;
+}
+
+.client-identification {
+    font-family: 'Courier New', monospace;
+}
+
+.client-type .type-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.client-type .type-badge.nit {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+.client-type .type-badge.cedula {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.client-phone {
+    font-family: 'Courier New', monospace;
+}
+
+/* Acciones en la tabla */
+.actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* Paginación - ESTILOS ESPECÍFICOS */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.pagination-button {
+    padding: 8px 12px;
+    border: 1px solid #3ABDBF;
+    background-color: white;
+    color: #3ABDBF;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: #3ABDBF;
+    color: white;
+}
+
+.pagination-button:disabled {
+    background-color: #f5f5f5;
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-button.active {
+    background-color: #3ABDBF;
+    color: white;
+    font-weight: bold;
+}
+
+/* ESTILOS ESPECÍFICOS DEL FORMULARIO DE CLIENTES */
+
+/* Estilos del formulario - ALINEACIÓN */
 .form-group-clients {
     display: flex;
     align-items: center;
@@ -26,6 +141,7 @@
     font-weight: bold;
     color: #555;
     min-width: 120px;
+    flex-shrink: 0;
 }
 
 .form-group-clients input,
@@ -46,22 +162,76 @@
     width: 100%;
 }
 
-/* Alineación específica para el grupo de tipo selector */
+/* GRUPO DE TIPO SELECTOR - CON BOTONES DE SEGMENTO */
 .form-group-clients.type-selector {
+    display: flex;
     align-items: center;
+    flex-wrap: nowrap;
+}
+
+.form-group-clients.type-selector label {
+    width: 200px;
+    text-align: right;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.form-group-clients.type-selector .identification-input-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
 }
 
 .form-group-clients.type-selector input.medium-input {
     max-width: 250px;
+    flex-shrink: 0;
+    margin: 0;
 }
 
-/* Textarea de ancho completo */
+/* BOTONES DE SEGMENTO - NUEVO ESTILO */
+.segment-buttons {
+    display: flex;
+    border: 1px solid #3ABDBF;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.segment-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 80px;
+    text-align: center;
+}
+
+.segment-button:not(:last-child) {
+    border-right: 1px solid #3ABDBF;
+}
+
+.segment-button:hover {
+    background-color: #f0f0f0;
+}
+
+.segment-button.active {
+    background-color: #3ABDBF;
+    color: white;
+}
+
+/* Textarea de ancho completo - CORREGIDO */
 .form-group-clients.full-width-textarea-clients {
     align-items: flex-start;
 }
 
 .form-group-clients.full-width-textarea-clients label {
     margin-top: 10px;
+    align-self: flex-start;
 }
 
 /* Grupo de botones corregido */
@@ -75,28 +245,14 @@
     border-top: 1px solid #eee;
 }
 
-/* Lista de clientes */
-.clients-list {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-}
-
-.clients-list h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-    text-transform: uppercase;
-}
-
-/* Responsive */
+/* Responsive específico para Clients */
 @media (max-width: 768px) {
-    .client-module-container {
-        margin: 10px;
-        padding: 20px;
-        max-width: none;
+    .clients-list-header h2 {
+        font-size: 20px;
+    }
+
+    .search-input {
+        max-width: 100%;
     }
 
     .form-group-clients {
@@ -109,6 +265,7 @@
         text-align: left;
         width: 100%;
         margin-right: 0;
+        margin-bottom: 5px;
     }
 
     .form-group-clients input,
@@ -117,12 +274,30 @@
         max-width: none;
     }
 
-    .form-group-clients.type-selector .radio-group {
+    .form-group-clients.type-selector {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-group-clients.type-selector .identification-input-container {
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
-        margin-left: 0;
         gap: 10px;
+    }
+
+    .form-group-clients.type-selector input.medium-input {
+        max-width: none;
+        width: 100%;
+    }
+
+    .segment-buttons {
+        width: 100%;
+    }
+
+    .segment-button {
+        flex: 1;
+        min-width: auto;
     }
 
     .button-group-clients {
@@ -131,7 +306,19 @@
         gap: 15px;
     }
 
-    .clients-list {
-        padding: 20px;
+    .actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .pagination-button {
+        padding: 6px 10px;
+        font-size: 12px;
+        min-width: 35px;
     }
 }
