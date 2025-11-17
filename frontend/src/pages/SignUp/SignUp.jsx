@@ -123,17 +123,6 @@ const SignUp = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group-signup">
-                        <label htmlFor="id_usuario">ID_U</label>
-                        <input
-                            type="text"
-                            id="id_usuario"
-                            value="NTU-2023-ABR-0074"
-                            readOnly
-                            className="read-only-input small-input"
-                        />
-                        <span className="info-text">(Código Usuario)</span>
-                    </div>
 
                     <div className="form-group-signup">
                         <label htmlFor="name">NOMBRE</label>
@@ -280,7 +269,7 @@ const SignUp = () => {
 
             <div className="footer-info">
                 <p>NEGOCIO TUNDAMA LTDA</p>
-                <p>TODOS LOS DERECHOS RESERVADOS - 2023</p>
+                <p>TODOS LOS DERECHOS RESERVADOS</p>
             </div>
         </div>
     );
