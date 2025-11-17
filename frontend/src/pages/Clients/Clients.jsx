@@ -9,6 +9,7 @@ import CustomerIcon from '../../img/customer_icon.png';
 const Clients = () => {
     const navigate = useNavigate();
     const [clients, setClients] = useState([]);
+    const [filteredClients, setFilteredClients] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -24,17 +25,37 @@ const Clients = () => {
     });
 
     const [editingId, setEditingId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const clientsPerPage = 3;
 
     // Cargar clientes al montar el componente
     useEffect(() => {
         loadClients();
     }, []);
 
+    // Filtrar clientes cuando cambia el término de búsqueda
+    useEffect(() => {
+        if (searchTerm.trim() === '') {
+            setFilteredClients(clients);
+        } else {
+            const filtered = clients.filter(client =>
+                client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                client.identification.includes(searchTerm) ||
+                client.clientCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                client.phone.includes(searchTerm)
+            );
+            setFilteredClients(filtered);
+        }
+        setCurrentPage(1); // Resetear a primera página al buscar
+    }, [searchTerm, clients]);
+
     const loadClients = async () => {
         try {
             setLoading(true);
             const data = await clientService.getAll();
             setClients(data);
+            setFilteredClients(data);
         } catch (error) {
             setError('Error al cargar los clientes');
             console.error('Error loading clients:', error);
@@ -116,6 +137,20 @@ const Clients = () => {
         }
     };
 
+    // Paginación
+    const indexOfLastClient = currentPage * clientsPerPage;
+    const indexOfFirstClient = indexOfLastClient - clientsPerPage;
+    const currentClients = filteredClients.slice(indexOfFirstClient, indexOfLastClient);
+    const totalPages = Math.ceil(filteredClients.length / clientsPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
         <div className="module-container">
             <div className="header">
@@ -127,7 +162,7 @@ const Clients = () => {
                     <img src={CustomerIcon} alt="Cliente" className="header-icon" />
                     <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar-menu"
+                        className="button"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -155,34 +190,32 @@ const Clients = () => {
 
                     <div className="form-group-clients type-selector">
                         <label htmlFor="identification"># IDENTIFICACIÓN</label>
-                        <input
-                            type="text"
-                            id="identification"
-                            name="identification"
-                            value={formData.identification}
-                            onChange={handleInputChange}
-                            required
-                            className="medium-input"
-                        />
-                        <div className="radio-group">
+                        <div className="identification-input-container">
                             <input
-                                type="radio"
-                                id="nit"
-                                name="identificationType"
-                                value="NIT"
-                                checked={formData.identificationType === 'NIT'}
+                                type="text"
+                                id="identification"
+                                name="identification"
+                                value={formData.identification}
                                 onChange={handleInputChange}
+                                required
+                                className="medium-input"
                             />
-                            <label htmlFor="nit">NIT</label>
-                            <input
-                                type="radio"
-                                id="cedula"
-                                name="identificationType"
-                                value="CEDULA"
-                                checked={formData.identificationType === 'CEDULA'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="cedula">CÉDULA</label>
+                            <div className="segment-buttons">
+                                <button
+                                    type="button"
+                                    className={`segment-button ${formData.identificationType === 'NIT' ? 'active' : ''}`}
+                                    onClick={() => setFormData(prev => ({ ...prev, identificationType: 'NIT' }))}
+                                >
+                                    NIT
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`segment-button ${formData.identificationType === 'CEDULA' ? 'active' : ''}`}
+                                    onClick={() => setFormData(prev => ({ ...prev, identificationType: 'CEDULA' }))}
+                                >
+                                    CÉDULA
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -237,54 +270,108 @@ const Clients = () => {
                 </form>
             </div>
 
-            {/* Lista de Clientes */}
+            {/* Lista de Clientes Mejorada */}
             <div className="clients-list">
-                <h2>LISTA DE CLIENTES</h2>
+                <div className="clients-list-header">
+                    <h2>LISTA DE CLIENTES</h2>
+                    <div className="search-container">
+                        <input
+                            type="text"
+                            placeholder="Buscar por nombre, identificación, código o teléfono..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="search-input"
+                        />
+                        <div className="search-results-info">
+                            {filteredClients.length} de {clients.length} clientes encontrados
+                        </div>
+                    </div>
+                </div>
+
                 {loading ? (
                     <div className="loading">Cargando clientes...</div>
                 ) : (
-                    <div className="data-table-container">
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    <th>CÓDIGO</th>
-                                    <th>NOMBRE</th>
-                                    <th>IDENTIFICACIÓN</th>
-                                    <th>TIPO</th>
-                                    <th>TELÉFONO</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {clients.map((client) => (
-                                    <tr key={client.id}>
-                                        <td>{client.clientCode}</td>
-                                        <td>{client.name}</td>
-                                        <td>{client.identification}</td>
-                                        <td>{client.identificationType}</td>
-                                        <td>{client.phone}</td>
-                                        <td>
-                                            <button
-                                                className="button small-button secondary"
-                                                onClick={() => handleEdit(client)}
-                                            >
-                                                EDITAR
-                                            </button>
-                                            <button
-                                                className="button small-button danger"
-                                                onClick={() => handleDelete(client.id)}
-                                            >
-                                                ELIMINAR
-                                            </button>
-                                        </td>
+                    <>
+                        <div className="data-table-container">
+                            <table className="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CÓDIGO</th>
+                                        <th>NOMBRE</th>
+                                        <th>IDENTIFICACIÓN</th>
+                                        <th>TIPO</th>
+                                        <th>TELÉFONO</th>
+                                        <th>ACCIONES</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {currentClients.map((client) => (
+                                        <tr key={client.id}>
+                                            <td className="client-code">{client.clientCode}</td>
+                                            <td className="client-name">{client.name}</td>
+                                            <td className="client-identification">{client.identification}</td>
+                                            <td className="client-type">
+                                                <span className={`type-badge ${client.identificationType.toLowerCase()}`}>
+                                                    {client.identificationType}
+                                                </span>
+                                            </td>
+                                            <td className="client-phone">{client.phone}</td>
+                                            <td className="actions">
+                                                <button
+                                                    className="button small-button secondary"
+                                                    onClick={() => handleEdit(client)}
+                                                >
+                                                    EDITAR
+                                                </button>
+                                                <button
+                                                    className="button small-button danger"
+                                                    onClick={() => handleDelete(client.id)}
+                                                >
+                                                    ELIMINAR
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {filteredClients.length === 0 && (
+                                <div className="no-data">
+                                    {searchTerm ? 'No se encontraron clientes que coincidan con la búsqueda' : 'No hay clientes registrados'}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Paginación */}
+                        {filteredClients.length > clientsPerPage && (
+                            <div className="pagination">
+                                <button
+                                    className="pagination-button"
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                >
+                                    ‹ Anterior
+                                </button>
+
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                    <button
+                                        key={page}
+                                        className={`pagination-button ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(page)}
+                                    >
+                                        {page}
+                                    </button>
                                 ))}
-                            </tbody>
-                        </table>
-                        {clients.length === 0 && (
-                            <div className="no-data">No hay clientes registrados</div>
+
+                                <button
+                                    className="pagination-button"
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Siguiente ›
+                                </button>
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
         </div>
