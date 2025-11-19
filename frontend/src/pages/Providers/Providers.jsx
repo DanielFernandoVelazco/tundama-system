@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { providerService } from '../../services/providerService';
 import './Providers.css';
@@ -9,6 +9,7 @@ import PurchasIcon from '../../img/purchases_icon.png';
 const Providers = () => {
     const navigate = useNavigate();
     const [providers, setProviders] = useState([]);
+    const [filteredProviders, setFilteredProviders] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -23,17 +24,37 @@ const Providers = () => {
     });
 
     const [editingId, setEditingId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const providersPerPage = 3;
 
     // Cargar proveedores al montar el componente
     useEffect(() => {
         loadProviders();
     }, []);
 
+    // Filtrar proveedores cuando cambia el término de búsqueda
+    useEffect(() => {
+        if (searchTerm.trim() === '') {
+            setFilteredProviders(providers);
+        } else {
+            const filtered = providers.filter(provider =>
+                provider.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                provider.identification.includes(searchTerm) ||
+                provider.providerCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                provider.phone.includes(searchTerm)
+            );
+            setFilteredProviders(filtered);
+        }
+        setCurrentPage(1); // Resetear a primera página al buscar
+    }, [searchTerm, providers]);
+
     const loadProviders = async () => {
         try {
             setLoading(true);
             const data = await providerService.getAll();
             setProviders(data);
+            setFilteredProviders(data);
         } catch (error) {
             setError('Error al cargar los proveedores');
             console.error('Error loading providers:', error);
@@ -113,6 +134,20 @@ const Providers = () => {
         }
     };
 
+    // Paginación
+    const indexOfLastProvider = currentPage * providersPerPage;
+    const indexOfFirstProvider = indexOfLastProvider - providersPerPage;
+    const currentProviders = filteredProviders.slice(indexOfFirstProvider, indexOfLastProvider);
+    const totalPages = Math.ceil(filteredProviders.length / providersPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
         <div className="module-container">
             <div className="header">
@@ -124,7 +159,7 @@ const Providers = () => {
                     <img src={PurchasIcon} alt="Proveedor" className="header-icon" />
                     <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar-menu"
+                        className="button"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -150,19 +185,21 @@ const Providers = () => {
                         />
                     </div>
 
-                    <div className="form-group-providers type-selector">
+                    <div className="form-group-providers identification-group">
                         <label htmlFor="identification"># IDENTIFICACIÓN</label>
-                        <input
-                            type="text"
-                            id="identification"
-                            name="identification"
-                            value={formData.identification}
-                            onChange={handleInputChange}
-                            required
-                            className="medium-input"
-                        />
-                        <div className="radio-group">
-                            <span className="radio-label-providers">NIT</span>
+                        <div className="identification-input-container">
+                            <input
+                                type="text"
+                                id="identification"
+                                name="identification"
+                                value={formData.identification}
+                                onChange={handleInputChange}
+                                required
+                                className="medium-input"
+                            />
+                            <div className="nit-badge">
+                                NIT
+                            </div>
                         </div>
                     </div>
 
@@ -201,7 +238,7 @@ const Providers = () => {
                         />
                     </div>
 
-                    <div className="button-group">
+                    <div className="button-group-providers">
                         <button type="submit" className="button primary">
                             {editingId ? 'ACTUALIZAR' : 'REGISTRAR'}
                         </button>
@@ -217,54 +254,104 @@ const Providers = () => {
                 </form>
             </div>
 
-            {/* Lista de Proveedores */}
+            {/* Lista de Proveedores Mejorada */}
             <div className="providers-list">
-                <h2>LISTA DE PROVEEDORES</h2>
+                <div className="providers-list-header">
+                    <h2>LISTA DE PROVEEDORES</h2>
+                    <div className="search-container">
+                        <input
+                            type="text"
+                            placeholder="Buscar por empresa, identificación, código o teléfono..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="search-input"
+                        />
+                        <div className="search-results-info">
+                            {filteredProviders.length} de {providers.length} proveedores encontrados
+                        </div>
+                    </div>
+                </div>
+
                 {loading ? (
                     <div className="loading">Cargando proveedores...</div>
                 ) : (
-                    <div className="data-table-container">
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    <th>CÓDIGO</th>
-                                    <th>EMPRESA</th>
-                                    <th>NIT</th>
-                                    <th>DIRECCIÓN</th>
-                                    <th>TELÉFONO</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {providers.map((provider) => (
-                                    <tr key={provider.id}>
-                                        <td>{provider.providerCode}</td>
-                                        <td>{provider.companyName}</td>
-                                        <td>{provider.identification}</td>
-                                        <td>{provider.address}</td>
-                                        <td>{provider.phone}</td>
-                                        <td>
-                                            <button
-                                                className="button small-button secondary"
-                                                onClick={() => handleEdit(provider)}
-                                            >
-                                                EDITAR
-                                            </button>
-                                            <button
-                                                className="button small-button danger"
-                                                onClick={() => handleDelete(provider.id)}
-                                            >
-                                                ELIMINAR
-                                            </button>
-                                        </td>
+                    <>
+                        <div className="data-table-container">
+                            <table className="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CÓDIGO</th>
+                                        <th>EMPRESA</th>
+                                        <th>NIT</th>
+                                        <th>DIRECCIÓN</th>
+                                        <th>TELÉFONO</th>
+                                        <th>ACCIONES</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {currentProviders.map((provider) => (
+                                        <tr key={provider.id}>
+                                            <td className="provider-code">{provider.providerCode}</td>
+                                            <td className="provider-company">{provider.companyName}</td>
+                                            <td className="provider-identification">{provider.identification}</td>
+                                            <td>{provider.address}</td>
+                                            <td className="provider-phone">{provider.phone}</td>
+                                            <td className="actions">
+                                                <button
+                                                    className="button small-button secondary"
+                                                    onClick={() => handleEdit(provider)}
+                                                >
+                                                    EDITAR
+                                                </button>
+                                                <button
+                                                    className="button small-button danger"
+                                                    onClick={() => handleDelete(provider.id)}
+                                                >
+                                                    ELIMINAR
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {filteredProviders.length === 0 && (
+                                <div className="no-data">
+                                    {searchTerm ? 'No se encontraron proveedores que coincidan con la búsqueda' : 'No hay proveedores registrados'}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Paginación */}
+                        {filteredProviders.length > providersPerPage && (
+                            <div className="pagination">
+                                <button
+                                    className="pagination-button"
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                >
+                                    ‹ Anterior
+                                </button>
+
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                    <button
+                                        key={page}
+                                        className={`pagination-button ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(page)}
+                                    >
+                                        {page}
+                                    </button>
                                 ))}
-                            </tbody>
-                        </table>
-                        {providers.length === 0 && (
-                            <div className="no-data">No hay proveedores registrados</div>
+
+                                <button
+                                    className="pagination-button"
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Siguiente ›
+                                </button>
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
 
