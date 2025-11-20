@@ -276,7 +276,7 @@ const Purchases = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    {/* Información de comprador y vendedor - REORGANIZADO */}
+                    {/* Información de comprador y vendedor - MÁS COMPACTO */}
                     <div className="buyer-seller-section">
                         <div className="section-title">INFORMACIÓN DE LA COMPRA</div>
 
@@ -310,7 +310,7 @@ const Purchases = () => {
                             <div className="seller-info">
                                 <h3>VENDEDOR</h3>
                                 <div className="form-group-purchases">
-                                    <label htmlFor="providerId"># NIT VENDEDOR</label>
+                                    <label htmlFor="providerId">NIT VENDEDOR</label>
                                     <select
                                         id="providerId"
                                         name="providerId"
@@ -342,13 +342,13 @@ const Purchases = () => {
                         </div>
                     </div>
 
-                    {/* Agregar productos - REORGANIZADO EN FILAS SEPARADAS */}
+                    {/* Agregar productos - MÁS COMPACTO */}
                     <div className="product-section">
                         <div className="section-title">AGREGAR PRODUCTOS</div>
 
                         {/* Fila 1: Selección de producto */}
                         <div className="form-group-purchases product-row">
-                            <label htmlFor="productId">NOMBRE PRODUCTO</label>
+                            <label htmlFor="productId">PRODUCTO</label>
                             <select
                                 id="productId"
                                 name="productId"
@@ -367,7 +367,7 @@ const Purchases = () => {
 
                         {/* Fila 2: Detalles del producto */}
                         <div className="form-group-purchases product-row">
-                            <label htmlFor="product_description">DETALLE PRODUCTO</label>
+                            <label htmlFor="product_description">DETALLE</label>
                             <input
                                 type="text"
                                 id="product_description"
@@ -378,13 +378,12 @@ const Purchases = () => {
                             />
                         </div>
 
-                        {/* Fila 3: Cantidad, Precio Unitario e IVA */}
+                        {/* Fila 3: Cantidad, Precio Unitario e IVA - MÁS COMPACTO */}
                         <div className="product-details-row">
                             <div className="form-group-purchases product-detail-group">
-                                <label htmlFor="quantity">CANTIDAD</label>
+                                <label>CANTIDAD</label>
                                 <input
                                     type="number"
-                                    id="quantity"
                                     name="quantity"
                                     value={currentItem.quantity}
                                     onChange={handleItemChange}
@@ -394,10 +393,9 @@ const Purchases = () => {
                             </div>
 
                             <div className="form-group-purchases product-detail-group">
-                                <label htmlFor="unitPrice">PRECIO UNITARIO</label>
+                                <label>PRECIO UNIT.</label>
                                 <input
                                     type="number"
-                                    id="unitPrice"
                                     name="unitPrice"
                                     value={currentItem.unitPrice}
                                     onChange={handleItemChange}
@@ -409,9 +407,8 @@ const Purchases = () => {
                             </div>
 
                             <div className="form-group-purchases product-detail-group">
-                                <label htmlFor="iva">IVA %</label>
+                                <label>IVA %</label>
                                 <select
-                                    id="iva"
                                     name="iva"
                                     value={currentItem.iva}
                                     onChange={handleItemChange}
@@ -429,7 +426,7 @@ const Purchases = () => {
                                     className="button primary register-button"
                                     onClick={addItem}
                                 >
-                                    REGISTRAR PRODUCTO
+                                    AGREGAR
                                 </button>
                             </div>
                         </div>
