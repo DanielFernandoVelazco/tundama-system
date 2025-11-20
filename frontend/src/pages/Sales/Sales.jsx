@@ -230,17 +230,6 @@ const Sales = () => {
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
                     {/* Información de la venta */}
-                    <div className="form-group">
-                        <label htmlFor="id_venta">ID_V</label>
-                        <input
-                            type="text"
-                            id="id_venta"
-                            value="NTV-2023-ABR-0074"
-                            readOnly
-                            className="read-only-input small-input"
-                        />
-                        <span className="info-text-sales">(Código Ventas)</span>
-                    </div>
 
                     <div className="sales-purchases-layout-sales">
                         <div className="form-group-sales">
