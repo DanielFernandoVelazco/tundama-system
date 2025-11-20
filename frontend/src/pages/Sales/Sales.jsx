@@ -15,6 +15,7 @@ const Sales = () => {
     const [clients, setClients] = useState([]);
     const [products, setProducts] = useState([]);
     const [sales, setSales] = useState([]);
+    const [filteredSales, setFilteredSales] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -30,6 +31,11 @@ const Sales = () => {
         productId: '',
         quantity: 1
     });
+
+    // Estado para búsqueda y paginación
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const salesPerPage = 5;
 
     // Estado para cálculos
     const [totals, setTotals] = useState({
@@ -75,6 +81,21 @@ const Sales = () => {
         calculateTotals();
     }, [calculateTotals]);
 
+    // Filtrar ventas cuando cambia el término de búsqueda
+    useEffect(() => {
+        if (searchTerm.trim() === '') {
+            setFilteredSales(sales);
+        } else {
+            const filtered = sales.filter(sale =>
+                sale.saleCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                sale.client?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                sale.total.toString().includes(searchTerm)
+            );
+            setFilteredSales(filtered);
+        }
+        setCurrentPage(1); // Resetear a primera página al buscar
+    }, [searchTerm, sales]);
+
     const loadInitialData = async () => {
         try {
             setLoading(true);
@@ -87,6 +108,7 @@ const Sales = () => {
             setClients(clientsData);
             setProducts(productsData);
             setSales(salesData);
+            setFilteredSales(salesData);
         } catch (error) {
             setError('Error al cargar los datos iniciales');
             console.error('Error loading initial data:', error);
@@ -195,6 +217,20 @@ const Sales = () => {
         }
     };
 
+    // Paginación
+    const indexOfLastSale = currentPage * salesPerPage;
+    const indexOfFirstSale = indexOfLastSale - salesPerPage;
+    const currentSales = filteredSales.slice(indexOfFirstSale, indexOfLastSale);
+    const totalPages = Math.ceil(filteredSales.length / salesPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     const formatPrice = (price) => {
         return `$${parseFloat(price).toFixed(2)}`;
     };
@@ -230,7 +266,6 @@ const Sales = () => {
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
                     {/* Información de la venta */}
-
                     <div className="sales-purchases-layout-sales">
                         <div className="form-group-sales">
                             <label htmlFor="fecha_venta">FECHA</label>
@@ -401,54 +436,108 @@ const Sales = () => {
                 </form>
             </div>
 
-            {/* Historial de Ventas */}
+            {/* Historial de Ventas - ACTUALIZADO CON BÚSQUEDA Y PAGINACIÓN */}
             <div className="sales-history">
-                <h2>HISTORIAL DE VENTAS</h2>
+                <div className="sales-list-header">
+                    <h2>HISTORIAL DE VENTAS</h2>
+                    <div className="search-container-sales">
+                        <input
+                            type="text"
+                            placeholder="Buscar por código, cliente o total..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="search-input-sales"
+                        />
+                        <div className="search-results-info-sales">
+                            {filteredSales.length} de {sales.length} ventas encontradas
+                        </div>
+                    </div>
+                </div>
+
                 {loading ? (
                     <div className="loading">Cargando ventas...</div>
                 ) : (
-                    <div className="data-table-container">
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    <th>CÓDIGO</th>
-                                    <th>FECHA</th>
-                                    <th>CLIENTE</th>
-                                    <th>PRODUCTOS</th>
-                                    <th>TOTAL</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {sales.map((sale) => (
-                                    <tr key={sale.id}>
-                                        <td>{sale.saleCode}</td>
-                                        <td>{new Date(sale.date).toLocaleDateString()}</td>
-                                        <td>{sale.client?.name}</td>
-                                        <td>{sale.items?.length || 0} productos</td>
-                                        <td>{formatPrice(sale.total)}</td>
-                                        <td>
-                                            <button
-                                                className="button small-button danger"
-                                                onClick={() => {
-                                                    if (window.confirm('¿Está seguro de eliminar esta venta?')) {
-                                                        saleService.delete(sale.id)
-                                                            .then(() => loadInitialData())
-                                                            .catch(error => setError('Error al eliminar la venta'));
-                                                    }
-                                                }}
-                                            >
-                                                ELIMINAR
-                                            </button>
-                                        </td>
+                    <>
+                        <div className="data-table-container">
+                            <table className="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CÓDIGO</th>
+                                        <th>FECHA</th>
+                                        <th>CLIENTE</th>
+                                        <th>PRODUCTOS</th>
+                                        <th>TOTAL</th>
+                                        <th>ACCIONES</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {currentSales.map((sale) => (
+                                        <tr key={sale.id}>
+                                            <td className="sale-code">{sale.saleCode}</td>
+                                            <td className="sale-date">{new Date(sale.date).toLocaleDateString()}</td>
+                                            <td className="sale-client">{sale.client?.name}</td>
+                                            <td className="sale-products">
+                                                <span className="products-badge">
+                                                    {sale.items?.length || 0} productos
+                                                </span>
+                                            </td>
+                                            <td className="sale-total">{formatPrice(sale.total)}</td>
+                                            <td className="actions-sales">
+                                                <button
+                                                    className="button small-button danger"
+                                                    onClick={() => {
+                                                        if (window.confirm('¿Está seguro de eliminar esta venta?')) {
+                                                            saleService.delete(sale.id)
+                                                                .then(() => loadInitialData())
+                                                                .catch(error => setError('Error al eliminar la venta'));
+                                                        }
+                                                    }}
+                                                >
+                                                    ELIMINAR
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {filteredSales.length === 0 && (
+                                <div className="no-data">
+                                    {searchTerm ? 'No se encontraron ventas que coincidan con la búsqueda' : 'No hay ventas registradas'}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Paginación - NUEVA IMPLEMENTACIÓN */}
+                        {filteredSales.length > salesPerPage && (
+                            <div className="pagination-sales">
+                                <button
+                                    className="pagination-button-sales"
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                >
+                                    ‹ Anterior
+                                </button>
+
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                    <button
+                                        key={page}
+                                        className={`pagination-button-sales ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(page)}
+                                    >
+                                        {page}
+                                    </button>
                                 ))}
-                            </tbody>
-                        </table>
-                        {sales.length === 0 && (
-                            <div className="no-data">No hay ventas registradas</div>
+
+                                <button
+                                    className="pagination-button-sales"
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Siguiente ›
+                                </button>
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
 
