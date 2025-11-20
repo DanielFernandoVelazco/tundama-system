@@ -23,6 +23,7 @@ const Purchases = () => {
     // Estado del formulario de compra
     const [purchaseData, setPurchaseData] = useState({
         providerId: '',
+        buyerId: 'EC-057', // ID del comprador fijo
         items: []
     });
 
@@ -41,7 +42,7 @@ const Purchases = () => {
         total: 0
     });
 
-    // Estados para búsqueda y paginación (NUEVOS)
+    // Estados para búsqueda y paginación
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const purchasesPerPage = 3;
@@ -51,7 +52,7 @@ const Purchases = () => {
         loadInitialData();
     }, []);
 
-    // Filtrar compras cuando cambia el término de búsqueda (NUEVO)
+    // Filtrar compras cuando cambia el término de búsqueda
     useEffect(() => {
         if (searchTerm.trim() === '') {
             setFilteredPurchases(purchases);
@@ -210,6 +211,7 @@ const Purchases = () => {
             // Resetear formulario
             setPurchaseData({
                 providerId: '',
+                buyerId: 'EC-057',
                 items: []
             });
             setTotals({
@@ -235,7 +237,7 @@ const Purchases = () => {
         return provider ? provider.companyName : '';
     };
 
-    // Paginación (NUEVO)
+    // Paginación
     const indexOfLastPurchase = currentPage * purchasesPerPage;
     const indexOfFirstPurchase = indexOfLastPurchase - purchasesPerPage;
     const currentPurchases = filteredPurchases.slice(indexOfFirstPurchase, indexOfLastPurchase);
@@ -274,203 +276,252 @@ const Purchases = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    {/* Información de la compra */}
-                    <div className="sales-purchases-layout-purchases">
-                        <div className="form-group-purchases">
-                            <label htmlFor="id_comprador">ID COMPRADOR</label>
-                            <input
-                                type="text"
-                                id="id_comprador"
-                                value="EC-057"
-                                readOnly
-                                className="read-only-input small-input"
-                            />
-                        </div>
+                    {/* Información de comprador y vendedor - REORGANIZADO */}
+                    <div className="buyer-seller-section">
+                        <div className="section-title">INFORMACIÓN DE LA COMPRA</div>
 
-                        <div className="form-group-purchases">
-                            <label htmlFor="providerId"># NIT VENDEDOR</label>
+                        <div className="buyer-seller-grid">
+                            {/* Información del Comprador */}
+                            <div className="buyer-info">
+                                <h3>COMPRADOR</h3>
+                                <div className="form-group-purchases">
+                                    <label htmlFor="id_comprador">ID COMPRADOR</label>
+                                    <input
+                                        type="text"
+                                        id="id_comprador"
+                                        value={purchaseData.buyerId}
+                                        readOnly
+                                        className="read-only-input small-input"
+                                    />
+                                </div>
+                                <div className="form-group-purchases">
+                                    <label htmlFor="nombre_comprador">NOMBRE COMPRADOR</label>
+                                    <input
+                                        type="text"
+                                        id="nombre_comprador"
+                                        value="EMPRESA TUNDAMA LTDA"
+                                        readOnly
+                                        className="read-only-input"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Información del Vendedor */}
+                            <div className="seller-info">
+                                <h3>VENDEDOR</h3>
+                                <div className="form-group-purchases">
+                                    <label htmlFor="providerId"># NIT VENDEDOR</label>
+                                    <select
+                                        id="providerId"
+                                        name="providerId"
+                                        value={purchaseData.providerId}
+                                        onChange={handleProviderChange}
+                                        className="small-input"
+                                        required
+                                    >
+                                        <option value="">Seleccione proveedor</option>
+                                        {providers.map(provider => (
+                                            <option key={provider.id} value={provider.id}>
+                                                {provider.identification} - {provider.companyName}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="form-group-purchases">
+                                    <label htmlFor="nombre_proveedor_compra">NOMBRE VENDEDOR</label>
+                                    <input
+                                        type="text"
+                                        id="nombre_proveedor_compra"
+                                        value={getProviderName(purchaseData.providerId)}
+                                        placeholder="Nombre del Proveedor"
+                                        readOnly
+                                        className="read-only-input"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Agregar productos - REORGANIZADO EN FILAS SEPARADAS */}
+                    <div className="product-section">
+                        <div className="section-title">AGREGAR PRODUCTOS</div>
+
+                        {/* Fila 1: Selección de producto */}
+                        <div className="form-group-purchases product-row">
+                            <label htmlFor="productId">NOMBRE PRODUCTO</label>
                             <select
-                                id="providerId"
-                                name="providerId"
-                                value={purchaseData.providerId}
-                                onChange={handleProviderChange}
-                                className="small-input"
-                                required
+                                id="productId"
+                                name="productId"
+                                value={currentItem.productId}
+                                onChange={handleItemChange}
+                                className="product-select"
                             >
-                                <option value="">Seleccione proveedor</option>
-                                {providers.map(provider => (
-                                    <option key={provider.id} value={provider.id}>
-                                        {provider.identification} - {provider.companyName}
+                                <option value="">Seleccione producto</option>
+                                {products.map(product => (
+                                    <option key={product.id} value={product.id}>
+                                        {product.productCode} - {product.name}
                                     </option>
                                 ))}
                             </select>
                         </div>
 
-                        <div className="form-group-purchases full-width">
+                        {/* Fila 2: Detalles del producto */}
+                        <div className="form-group-purchases product-row">
+                            <label htmlFor="product_description">DETALLE PRODUCTO</label>
                             <input
                                 type="text"
-                                id="nombre_proveedor_compra"
-                                value={getProviderName(purchaseData.providerId)}
-                                placeholder="Nombre del Proveedor"
+                                id="product_description"
+                                value={currentItem.productId ? getProductDetails(currentItem.productId)?.description || '' : ''}
+                                placeholder="Detalle del producto"
                                 readOnly
-                                className="full-width-input"
+                                className="product-description"
                             />
+                        </div>
+
+                        {/* Fila 3: Cantidad, Precio Unitario e IVA */}
+                        <div className="product-details-row">
+                            <div className="form-group-purchases product-detail-group">
+                                <label htmlFor="quantity">CANTIDAD</label>
+                                <input
+                                    type="number"
+                                    id="quantity"
+                                    name="quantity"
+                                    value={currentItem.quantity}
+                                    onChange={handleItemChange}
+                                    min="1"
+                                    className="quantity-input"
+                                />
+                            </div>
+
+                            <div className="form-group-purchases product-detail-group">
+                                <label htmlFor="unitPrice">PRECIO UNITARIO</label>
+                                <input
+                                    type="number"
+                                    id="unitPrice"
+                                    name="unitPrice"
+                                    value={currentItem.unitPrice}
+                                    onChange={handleItemChange}
+                                    step="0.01"
+                                    min="0"
+                                    className="price-input"
+                                    placeholder="0.00"
+                                />
+                            </div>
+
+                            <div className="form-group-purchases product-detail-group">
+                                <label htmlFor="iva">IVA %</label>
+                                <select
+                                    id="iva"
+                                    name="iva"
+                                    value={currentItem.iva}
+                                    onChange={handleItemChange}
+                                    className="iva-select"
+                                >
+                                    <option value="0">0%</option>
+                                    <option value="5">5%</option>
+                                    <option value="19">19%</option>
+                                </select>
+                            </div>
+
+                            <div className="product-action-group">
+                                <button
+                                    type="button"
+                                    className="button primary register-button"
+                                    onClick={addItem}
+                                >
+                                    REGISTRAR PRODUCTO
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Agregar productos */}
-                    <div className="form-group-purchases product-details-group">
-                        <label htmlFor="productId">NOMBRE PRODUCTO</label>
-                        <select
-                            id="productId"
-                            name="productId"
-                            value={currentItem.productId}
-                            onChange={handleItemChange}
-                            className="small-input"
-                        >
-                            <option value="">Seleccione producto</option>
-                            {products.map(product => (
-                                <option key={product.id} value={product.id}>
-                                    {product.productCode} - {product.name}
-                                </option>
-                            ))}
-                        </select>
-
-                        <label htmlFor="quantity" className="label-inline-purchases">CANTIDAD</label>
-                        <input
-                            type="number"
-                            id="quantity"
-                            name="quantity"
-                            value={currentItem.quantity}
-                            onChange={handleItemChange}
-                            min="1"
-                            className="small-input"
-                        />
-                    </div>
-
-                    <div className="form-group-purchases product-detail-actions">
-                        <input
-                            type="text"
-                            value={currentItem.productId ? getProductDetails(currentItem.productId)?.description || '' : ''}
-                            placeholder="Detalle del producto"
-                            readOnly
-                            className="full-width-input"
-                        />
-
-                        <div className="price-inputs-purchases">
-                            <label>PRECIO UNITARIO</label>
-                            <input
-                                type="number"
-                                name="unitPrice"
-                                value={currentItem.unitPrice}
-                                onChange={handleItemChange}
-                                step="0.01"
-                                min="0"
-                                className="extra-small-input"
-                                placeholder="0.00"
-                            />
-
-                            <label>IVA %</label>
-                            <select
-                                name="iva"
-                                value={currentItem.iva}
-                                onChange={handleItemChange}
-                                className="extra-small-input"
-                            >
-                                <option value="0">0%</option>
-                                <option value="5">5%</option>
-                                <option value="19">19%</option>
-                            </select>
-                        </div>
-
-                        <button
-                            type="button"
-                            className="button primary small-button"
-                            onClick={addItem}
-                        >
-                            REGISTRAR
-                        </button>
-                    </div>
-
-                    {/* Tabla de items */}
+                    {/* Tabla de items agregados */}
                     {purchaseData.items.length > 0 && (
-                        <div className="data-table-container">
-                            <table className="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>NOMBRE</th>
-                                        <th>IVA</th>
-                                        <th>UNIDAD</th>
-                                        <th>PRECIO UN.</th>
-                                        <th>CANTIDAD</th>
-                                        <th>PRECIO TOTAL</th>
-                                        <th>ACCIÓN</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {purchaseData.items.map((item, index) => {
-                                        const product = getProductDetails(item.productId);
-                                        if (!product) return null;
+                        <div className="items-table-section">
+                            <div className="section-title">PRODUCTOS AGREGADOS</div>
+                            <div className="data-table-container">
+                                <table className="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NOMBRE</th>
+                                            <th>IVA</th>
+                                            <th>UNIDAD</th>
+                                            <th>PRECIO UN.</th>
+                                            <th>CANTIDAD</th>
+                                            <th>PRECIO TOTAL</th>
+                                            <th>ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {purchaseData.items.map((item, index) => {
+                                            const product = getProductDetails(item.productId);
+                                            if (!product) return null;
 
-                                        const itemTotal = item.unitPrice * item.quantity;
-                                        const itemIva = itemTotal * (item.iva / 100);
-                                        const totalWithIva = itemTotal + itemIva;
+                                            const itemTotal = item.unitPrice * item.quantity;
+                                            const itemIva = itemTotal * (item.iva / 100);
+                                            const totalWithIva = itemTotal + itemIva;
 
-                                        return (
-                                            <tr key={index}>
-                                                <td>{index + 1}</td>
-                                                <td>{product.name}</td>
-                                                <td>{item.iva}%</td>
-                                                <td>{product.unit}</td>
-                                                <td>{formatPrice(item.unitPrice)}</td>
-                                                <td>{item.quantity}</td>
-                                                <td>{formatPrice(totalWithIva)}</td>
-                                                <td>
-                                                    <button
-                                                        type="button"
-                                                        className="button danger small-button"
-                                                        onClick={() => removeItem(index)}
-                                                    >
-                                                        QUITAR
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{product.name}</td>
+                                                    <td>{item.iva}%</td>
+                                                    <td>{product.unit}</td>
+                                                    <td>{formatPrice(item.unitPrice)}</td>
+                                                    <td>{item.quantity}</td>
+                                                    <td>{formatPrice(totalWithIva)}</td>
+                                                    <td>
+                                                        <button
+                                                            type="button"
+                                                            className="button danger small-button"
+                                                            onClick={() => removeItem(index)}
+                                                        >
+                                                            QUITAR
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     )}
 
                     {/* Totales */}
-                    <div className="price-iva-total-purchases">
-                        <span>SUBTOTAL: <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input" /></span>
-                        <span>IVA: <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input" /></span>
-                        <span className="total-amount-purchases">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
-                    </div>
+                    {purchaseData.items.length > 0 && (
+                        <div className="totals-section">
+                            <div className="section-title">TOTALES DE LA COMPRA</div>
+                            <div className="price-iva-total-purchases">
+                                <span>SUBTOTAL: <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input" /></span>
+                                <span>IVA: <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input" /></span>
+                                <span className="total-amount-purchases">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
+                            </div>
+                        </div>
+                    )}
 
-                    {/* Botones de acción - CONSISTENTES CON CLIENTS */}
+                    {/* Botones de acción */}
                     <div className="button-group-purchases">
-                        <button type="submit" className="button primary">
-                            COMPRAR
+                        <button type="submit" className="button primary large-button">
+                            REGISTRAR COMPRA
                         </button>
                         <button
                             type="button"
                             className="button secondary"
                             onClick={() => {
-                                setPurchaseData({ providerId: '', items: [] });
+                                setPurchaseData({ providerId: '', buyerId: 'EC-057', items: [] });
                                 setError('');
                                 setSuccess('');
                             }}
                         >
-                            LIMPIAR
+                            LIMPIAR FORMULARIO
                         </button>
                     </div>
                 </form>
             </div>
 
-            {/* Historial de Compras - MEJORADO CON BÚSQUEDA Y PAGINACIÓN */}
+            {/* Historial de Compras */}
             <div className="purchases-history">
                 <div className="purchases-history-header">
                     <h2>HISTORIAL DE COMPRAS</h2>
@@ -537,7 +588,7 @@ const Purchases = () => {
                             )}
                         </div>
 
-                        {/* Paginación - NUEVA */}
+                        {/* Paginación */}
                         {filteredPurchases.length > purchasesPerPage && (
                             <div className="pagination-purchases">
                                 <button
