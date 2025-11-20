@@ -9,33 +9,52 @@
     margin-left: 10px;
 }
 
-/* Layout principal - MEJORADO siguiendo Clients */
-.sales-purchases-layout-purchases {
+/* Secciones principales */
+.buyer-seller-section,
+.product-section,
+.items-table-section,
+.totals-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3ABDBF;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3ABDBF;
+    text-align: center;
+}
+
+/* Grid de comprador y vendedor */
+.buyer-seller-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 100%;
+    gap: 30px;
+}
+
+.buyer-info,
+.seller-info {
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.buyer-info h3,
+.seller-info h3 {
+    color: #333;
     margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
 }
 
-.sales-purchases-layout-purchases .form-group-purchases {
-    grid-column: span 1;
-    margin-bottom: 15px;
-}
-
-.sales-purchases-layout-purchases .form-group-purchases.full-width {
-    grid-column: span 2;
-}
-
-.button-row-purchases {
-    grid-column: span 2;
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-/* Form groups - ALINEACIÓN CONSISTENTE CON CLIENTS */
+/* Form groups - ALINEACIÓN CONSISTENTE */
 .form-group-purchases {
     display: flex;
     align-items: center;
@@ -78,85 +97,76 @@
     max-width: 150px;
 }
 
-.form-group-purchases input.small-input {
-    max-width: 100px;
-}
-
-.form-group-purchases input.extra-small-input {
-    max-width: 60px;
-}
-
-.form-group-purchases input.full-width-input {
-    max-width: none;
-    width: 100%;
-}
-
-/* Grupos de productos - MEJORADO */
-.form-group-purchases.product-details-group {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
+/* Estilos específicos para productos */
+.product-row {
     margin-bottom: 15px;
 }
 
-.form-group-purchases.product-details-group label {
-    flex-basis: 200px;
-    text-align: right;
-    margin-right: 15px;
+.product-select {
+    max-width: 500px !important;
 }
 
-.form-group-purchases.product-details-group .label-inline-purchases {
-    flex-basis: auto;
-    margin-left: 30px;
-    text-align: right;
-    width: auto;
-    min-width: auto;
+.product-description {
+    max-width: none !important;
+    width: 100% !important;
 }
 
-/* Detalles de producto y acciones - ALINEACIÓN CORREGIDA */
-.form-group-purchases.product-detail-actions {
-    display: flex;
-    align-items: center;
+/* Fila de detalles del producto */
+.product-details-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
     gap: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    padding-left: 215px;
-    margin-bottom: 20px;
+    align-items: end;
 }
 
-.form-group-purchases.product-detail-actions input {
-    flex-grow: 1;
-    max-width: none;
+.product-detail-group {
+    margin-bottom: 0;
 }
 
-.price-inputs-purchases {
+.product-detail-group label {
+    width: 150px;
+    font-size: 16px;
+}
+
+.quantity-input {
+    max-width: 100px !important;
+}
+
+.price-input {
+    max-width: 120px !important;
+}
+
+.iva-select {
+    max-width: 100px !important;
+}
+
+.product-action-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    height: 100%;
+    margin-bottom: 18px;
 }
 
-.price-inputs-purchases label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    margin: 0;
-    width: auto;
-    min-width: auto;
+.register-button {
+    white-space: nowrap;
+    min-width: 180px;
 }
 
-/* Precios e IVA - ALINEACIÓN MEJORADA */
+/* Tabla de items */
+.items-table-section {
+    margin-top: 20px;
+}
+
+/* Totales */
 .price-iva-total-purchases {
     display: flex;
-    width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    gap: 40px;
     margin: 20px 0;
     font-size: 18px;
     font-weight: bold;
     color: #333;
-    gap: 30px;
-    padding-left: 215px;
 }
 
 .price-iva-total-purchases span {
@@ -171,61 +181,17 @@
 }
 
 .price-iva-total-purchases input {
-    width: 120px;
-    padding: 8px 10px;
+    width: 150px;
+    padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     text-align: right;
     font-weight: bold;
+    background-color: #f9f9f9;
 }
 
-/* Resumen de totales - ESTILO MEJORADO */
-.totals-summary-purchases {
-    width: 300px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    align-self: flex-end;
-}
-
-.totals-summary-purchases div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 16px;
-}
-
-.totals-summary-purchases .total-amount-purchases {
-    font-weight: bold;
-    font-size: 18px;
-    color: #3ABDBF;
-    border-top: 1px solid #eee;
-    padding-top: 8px;
-}
-
-.totals-summary-purchases .read-only-total-input-purchases {
-    border: none;
-    background: none;
-    text-align: right;
-    width: 80px;
-    padding: 0;
-    font-size: inherit;
-    color: inherit;
-    box-shadow: none;
-}
-
-/* Layout de botones y totales - MEJORADO */
-.bottom-actions-row-purchases {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    margin-top: 20px;
-}
-
-/* Grupo de botones - CONSISTENTE CON CLIENTS */
+/* Botones */
 .button-group-purchases {
     display: flex;
     justify-content: center;
@@ -236,7 +202,13 @@
     border-top: 1px solid #eee;
 }
 
-/* Historial de compras - ESTILOS MEJORADOS */
+.large-button {
+    padding: 12px 30px;
+    font-size: 16px;
+    min-width: 200px;
+}
+
+/* Historial de compras */
 .purchases-history {
     background-color: white;
     padding: 30px;
@@ -257,7 +229,7 @@
     font-size: 24px;
 }
 
-/* Búsqueda en historial - NUEVO ESTILO */
+/* Búsqueda en historial */
 .search-container-purchases {
     display: flex;
     flex-direction: column;
@@ -282,7 +254,7 @@
     text-align: center;
 }
 
-/* Paginación - ESTILOS DE CLIENTS APLICADOS */
+/* Paginación */
 .pagination-purchases {
     display: flex;
     justify-content: center;
@@ -324,20 +296,16 @@
     font-weight: bold;
 }
 
-/* Responsive - MEJORADO */
+/* Responsive */
 @media (max-width: 768px) {
-    .sales-purchases-layout-purchases {
+    .buyer-seller-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
-    .sales-purchases-layout-purchases .form-group-purchases,
-    .sales-purchases-layout-purchases .form-group-purchases.full-width {
-        grid-column: span 1;
-    }
-
-    .button-row-purchases {
-        grid-column: span 1;
-        justify-content: center;
+    .product-details-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     .form-group-purchases {
@@ -361,49 +329,15 @@
         max-width: none;
     }
 
-    .form-group-purchases.product-details-group {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .form-group-purchases.product-details-group .label-inline-purchases {
-        margin-left: 0;
-    }
-
-    .form-group-purchases.product-detail-actions {
-        flex-direction: column;
-        padding-left: 0;
-        gap: 10px;
-    }
-
-    .price-inputs-purchases {
-        width: 100%;
-        justify-content: space-between;
-    }
-
     .price-iva-total-purchases {
         flex-direction: column;
-        align-items: flex-start;
         gap: 15px;
-        padding-left: 0;
-    }
-
-    .bottom-actions-row-purchases {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
     }
 
     .button-group-purchases {
         flex-direction: column;
         align-items: center;
         gap: 15px;
-    }
-
-    .totals-summary-purchases {
-        width: 100%;
-        align-self: center;
     }
 
     .purchases-history {
