@@ -35,7 +35,7 @@ const Sales = () => {
     // Estado para búsqueda y paginación
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const salesPerPage = 5;
+    const salesPerPage = 3; // CAMBIADO: Ahora son 3 registros por página
 
     // Estado para cálculos
     const [totals, setTotals] = useState({
@@ -217,7 +217,7 @@ const Sales = () => {
         }
     };
 
-    // Paginación
+    // Paginación - ACTUALIZADA: 3 registros por página
     const indexOfLastSale = currentPage * salesPerPage;
     const indexOfFirstSale = indexOfLastSale - salesPerPage;
     const currentSales = filteredSales.slice(indexOfFirstSale, indexOfLastSale);
@@ -436,7 +436,7 @@ const Sales = () => {
                 </form>
             </div>
 
-            {/* Historial de Ventas - ACTUALIZADO CON BÚSQUEDA Y PAGINACIÓN */}
+            {/* Historial de Ventas - CON PAGINACIÓN DE 3 REGISTROS */}
             <div className="sales-history">
                 <div className="sales-list-header">
                     <h2>HISTORIAL DE VENTAS</h2>
@@ -507,7 +507,7 @@ const Sales = () => {
                             )}
                         </div>
 
-                        {/* Paginación - NUEVA IMPLEMENTACIÓN */}
+                        {/* Paginación - ACTIVADA CADA 3 REGISTROS */}
                         {filteredSales.length > salesPerPage && (
                             <div className="pagination-sales">
                                 <button
