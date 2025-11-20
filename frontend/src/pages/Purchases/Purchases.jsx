@@ -15,6 +15,7 @@ const Purchases = () => {
     const [providers, setProviders] = useState([]);
     const [products, setProducts] = useState([]);
     const [purchases, setPurchases] = useState([]);
+    const [filteredPurchases, setFilteredPurchases] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -40,10 +41,31 @@ const Purchases = () => {
         total: 0
     });
 
+    // Estados para búsqueda y paginación (NUEVOS)
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const purchasesPerPage = 3;
+
     // Cargar datos al montar el componente
     useEffect(() => {
         loadInitialData();
     }, []);
+
+    // Filtrar compras cuando cambia el término de búsqueda (NUEVO)
+    useEffect(() => {
+        if (searchTerm.trim() === '') {
+            setFilteredPurchases(purchases);
+        } else {
+            const filtered = purchases.filter(purchase =>
+                purchase.purchaseCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                purchase.provider?.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                purchase.total.toString().includes(searchTerm) ||
+                new Date(purchase.createdAt).toLocaleDateString().includes(searchTerm)
+            );
+            setFilteredPurchases(filtered);
+        }
+        setCurrentPage(1);
+    }, [searchTerm, purchases]);
 
     // Función para obtener detalles del producto
     const getProductDetails = useCallback((productId) => {
@@ -86,6 +108,7 @@ const Purchases = () => {
             setProviders(providersData);
             setProducts(productsData);
             setPurchases(purchasesData);
+            setFilteredPurchases(purchasesData);
         } catch (error) {
             setError('Error al cargar los datos iniciales');
             console.error('Error loading initial data:', error);
@@ -212,6 +235,20 @@ const Purchases = () => {
         return provider ? provider.companyName : '';
     };
 
+    // Paginación (NUEVO)
+    const indexOfLastPurchase = currentPage * purchasesPerPage;
+    const indexOfFirstPurchase = indexOfLastPurchase - purchasesPerPage;
+    const currentPurchases = filteredPurchases.slice(indexOfFirstPurchase, indexOfLastPurchase);
+    const totalPages = Math.ceil(filteredPurchases.length / purchasesPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
         <div className="module-container">
             <div className="header">
@@ -238,18 +275,6 @@ const Purchases = () => {
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
                     {/* Información de la compra */}
-                    <div className="form-group">
-                        <label htmlFor="id_compra">ID_CO</label>
-                        <input
-                            type="text"
-                            id="id_compra"
-                            value="NTCO-2023-ABR-0149"
-                            readOnly
-                            className="read-only-input small-input"
-                        />
-                        <span className="info-text-purchases">(Código Compras)</span>
-                    </div>
-
                     <div className="sales-purchases-layout-purchases">
                         <div className="form-group-purchases">
                             <label htmlFor="id_comprador">ID COMPRADOR</label>
@@ -425,82 +450,124 @@ const Purchases = () => {
                         <span className="total-amount-purchases">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
                     </div>
 
-                    {/* Botones de acción */}
-                    <div className="bottom-actions-row-purchases">
-                        <div className="button-group-purchases">
-                            <button type="submit" className="button primary">
-                                COMPRAR
-                            </button>
-                            <button
-                                type="button"
-                                className="button secondary"
-                                onClick={() => {
-                                    setPurchaseData({ providerId: '', items: [] });
-                                    setError('');
-                                    setSuccess('');
-                                }}
-                            >
-                                LIMPIAR
-                            </button>
-                        </div>
-
-                        <div className="totals-summary-purchases">
-                            <div>SUB TOTAL <span>$ <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input-purchases" /></span></div>
-                            <div>IVA <span>$ <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input-purchases" /></span></div>
-                            <div className="total-amount-purchases">TOTAL <span>$ <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input-purchases" /></span></div>
-                        </div>
+                    {/* Botones de acción - CONSISTENTES CON CLIENTS */}
+                    <div className="button-group-purchases">
+                        <button type="submit" className="button primary">
+                            COMPRAR
+                        </button>
+                        <button
+                            type="button"
+                            className="button secondary"
+                            onClick={() => {
+                                setPurchaseData({ providerId: '', items: [] });
+                                setError('');
+                                setSuccess('');
+                            }}
+                        >
+                            LIMPIAR
+                        </button>
                     </div>
                 </form>
             </div>
 
-            {/* Historial de Compras */}
+            {/* Historial de Compras - MEJORADO CON BÚSQUEDA Y PAGINACIÓN */}
             <div className="purchases-history">
-                <h2>HISTORIAL DE COMPRAS</h2>
+                <div className="purchases-history-header">
+                    <h2>HISTORIAL DE COMPRAS</h2>
+                    <div className="search-container-purchases">
+                        <input
+                            type="text"
+                            placeholder="Buscar por código, proveedor, total o fecha..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="search-input-purchases"
+                        />
+                        <div className="search-results-info-purchases">
+                            {filteredPurchases.length} de {purchases.length} compras encontradas
+                        </div>
+                    </div>
+                </div>
+
                 {loading ? (
                     <div className="loading">Cargando compras...</div>
                 ) : (
-                    <div className="data-table-container">
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    <th>CÓDIGO</th>
-                                    <th>PROVEEDOR</th>
-                                    <th>PRODUCTOS</th>
-                                    <th>TOTAL</th>
-                                    <th>FECHA</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {purchases.map((purchase) => (
-                                    <tr key={purchase.id}>
-                                        <td>{purchase.purchaseCode}</td>
-                                        <td>{purchase.provider?.companyName}</td>
-                                        <td>{purchase.items?.length || 0} productos</td>
-                                        <td>{formatPrice(purchase.total)}</td>
-                                        <td>{new Date(purchase.createdAt).toLocaleDateString()}</td>
-                                        <td>
-                                            <button
-                                                className="button small-button danger"
-                                                onClick={() => {
-                                                    if (window.confirm('¿Está seguro de eliminar esta compra?')) {
-                                                        purchaseService.delete(purchase.id)
-                                                            .then(() => loadInitialData())
-                                                            .catch(error => setError('Error al eliminar la compra'));
-                                                    }
-                                                }}
-                                            >
-                                                ELIMINAR
-                                            </button>
-                                        </td>
+                    <>
+                        <div className="data-table-container">
+                            <table className="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CÓDIGO</th>
+                                        <th>PROVEEDOR</th>
+                                        <th>PRODUCTOS</th>
+                                        <th>TOTAL</th>
+                                        <th>FECHA</th>
+                                        <th>ACCIONES</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {currentPurchases.map((purchase) => (
+                                        <tr key={purchase.id}>
+                                            <td className="client-code">{purchase.purchaseCode}</td>
+                                            <td className="client-name">{purchase.provider?.companyName}</td>
+                                            <td>{purchase.items?.length || 0} productos</td>
+                                            <td className="client-identification">{formatPrice(purchase.total)}</td>
+                                            <td className="client-phone">{new Date(purchase.createdAt).toLocaleDateString()}</td>
+                                            <td className="actions">
+                                                <button
+                                                    className="button small-button danger"
+                                                    onClick={() => {
+                                                        if (window.confirm('¿Está seguro de eliminar esta compra?')) {
+                                                            purchaseService.delete(purchase.id)
+                                                                .then(() => loadInitialData())
+                                                                .catch(error => setError('Error al eliminar la compra'));
+                                                        }
+                                                    }}
+                                                >
+                                                    ELIMINAR
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {filteredPurchases.length === 0 && (
+                                <div className="no-data">
+                                    {searchTerm ? 'No se encontraron compras que coincidan con la búsqueda' : 'No hay compras registradas'}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Paginación - NUEVA */}
+                        {filteredPurchases.length > purchasesPerPage && (
+                            <div className="pagination-purchases">
+                                <button
+                                    className="pagination-button-purchases"
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                >
+                                    ‹ Anterior
+                                </button>
+
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                    <button
+                                        key={page}
+                                        className={`pagination-button-purchases ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(page)}
+                                    >
+                                        {page}
+                                    </button>
                                 ))}
-                            </tbody>
-                        </table>
-                        {purchases.length === 0 && (
-                            <div className="no-data">No hay compras registradas</div>
+
+                                <button
+                                    className="pagination-button-purchases"
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Siguiente ›
+                                </button>
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
 
