@@ -52,6 +52,19 @@
     font-family: 'Courier New', monospace;
 }
 
+.provider-type .type-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.provider-type .type-badge.nit {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
 .provider-phone {
     font-family: 'Courier New', monospace;
 }
@@ -144,7 +157,7 @@
     width: 100%;
 }
 
-/* GRUPO DE IDENTIFICACIÓN */
+/* GRUPO DE IDENTIFICACIÓN - ESTILO IDÉNTICO A CLIENTS */
 .form-group-providers.identification-group {
     display: flex;
     align-items: center;
@@ -171,14 +184,14 @@
     margin: 0;
 }
 
-/* BADGE PARA NIT */
-.nit-badge {
-    padding: 8px 16px;
-    background-color: #e8f5e8;
-    color: #2e7d32;
+/* BADGE NIT FIJO - MISMOS ESTILOS QUE CLIENTS */
+.nit-fixed-badge {
+    padding: 10px 20px;
+    background-color: #3ABDBF;
+    color: white;
     border-radius: 5px;
+    font-size: 14px;
     font-weight: bold;
-    border: 1px solid #2e7d32;
     min-width: 80px;
     text-align: center;
 }
@@ -250,7 +263,7 @@
         width: 100%;
     }
 
-    .nit-badge {
+    .nit-fixed-badge {
         width: 100%;
         text-align: center;
     }
