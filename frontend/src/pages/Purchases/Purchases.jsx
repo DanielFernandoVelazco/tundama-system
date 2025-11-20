@@ -276,7 +276,7 @@ const Purchases = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    {/* Información de comprador y vendedor - MÁS COMPACTO */}
+                    {/* Información de comprador y vendedor */}
                     <div className="buyer-seller-section">
                         <div className="section-title">INFORMACIÓN DE LA COMPRA</div>
 
@@ -342,7 +342,7 @@ const Purchases = () => {
                         </div>
                     </div>
 
-                    {/* Agregar productos - MÁS COMPACTO */}
+                    {/* Agregar productos - REORGANIZADO EN FILAS SEPARADAS */}
                     <div className="product-section">
                         <div className="section-title">AGREGAR PRODUCTOS</div>
 
@@ -378,57 +378,62 @@ const Purchases = () => {
                             />
                         </div>
 
-                        {/* Fila 3: Cantidad, Precio Unitario e IVA - MÁS COMPACTO */}
-                        <div className="product-details-row">
-                            <div className="form-group-purchases product-detail-group">
-                                <label>CANTIDAD</label>
-                                <input
-                                    type="number"
-                                    name="quantity"
-                                    value={currentItem.quantity}
-                                    onChange={handleItemChange}
-                                    min="1"
-                                    className="quantity-input"
-                                />
-                            </div>
+                        {/* Fila 3: Cantidad */}
+                        <div className="form-group-purchases product-row">
+                            <label htmlFor="quantity">CANTIDAD</label>
+                            <input
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                value={currentItem.quantity}
+                                onChange={handleItemChange}
+                                min="1"
+                                className="quantity-input"
+                            />
+                        </div>
 
-                            <div className="form-group-purchases product-detail-group">
-                                <label>PRECIO UNIT.</label>
-                                <input
-                                    type="number"
-                                    name="unitPrice"
-                                    value={currentItem.unitPrice}
-                                    onChange={handleItemChange}
-                                    step="0.01"
-                                    min="0"
-                                    className="price-input"
-                                    placeholder="0.00"
-                                />
-                            </div>
+                        {/* Fila 4: Precio Unitario */}
+                        <div className="form-group-purchases product-row">
+                            <label htmlFor="unitPrice">PRECIO UNITARIO</label>
+                            <input
+                                type="number"
+                                id="unitPrice"
+                                name="unitPrice"
+                                value={currentItem.unitPrice}
+                                onChange={handleItemChange}
+                                step="0.01"
+                                min="0"
+                                className="price-input"
+                                placeholder="0.00"
+                            />
+                        </div>
 
-                            <div className="form-group-purchases product-detail-group">
-                                <label>IVA %</label>
-                                <select
-                                    name="iva"
-                                    value={currentItem.iva}
-                                    onChange={handleItemChange}
-                                    className="iva-select"
-                                >
-                                    <option value="0">0%</option>
-                                    <option value="5">5%</option>
-                                    <option value="19">19%</option>
-                                </select>
-                            </div>
+                        {/* Fila 5: IVA */}
+                        <div className="form-group-purchases product-row">
+                            <label htmlFor="iva">IVA %</label>
+                            <select
+                                id="iva"
+                                name="iva"
+                                value={currentItem.iva}
+                                onChange={handleItemChange}
+                                className="iva-select"
+                            >
+                                <option value="0">0%</option>
+                                <option value="5">5%</option>
+                                <option value="19">19%</option>
+                            </select>
+                        </div>
 
-                            <div className="product-action-group">
-                                <button
-                                    type="button"
-                                    className="button primary register-button"
-                                    onClick={addItem}
-                                >
-                                    AGREGAR
-                                </button>
-                            </div>
+                        {/* Fila 6: Botón Agregar */}
+                        <div className="form-group-purchases product-row">
+                            <label></label>
+                            <button
+                                type="button"
+                                className="button primary register-button"
+                                onClick={addItem}
+                            >
+                                AGREGAR PRODUCTO
+                            </button>
                         </div>
                     </div>
 
