@@ -480,3 +480,106 @@
         font-size: 13px;
     }
 }
+
+/* Sección de productos reorganizada */
+.product-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.product-row {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.product-row label {
+    width: 180px;
+    text-align: right;
+    margin-right: 12px;
+    font-weight: bold;
+    color: #555;
+    min-width: 100px;
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.product-select {
+    max-width: 400px !important;
+    flex-grow: 1;
+}
+
+.product-description {
+    max-width: none !important;
+    width: 100% !important;
+    flex-grow: 1;
+}
+
+.quantity-input,
+.price-input,
+.iva-select {
+    max-width: 200px !important;
+    flex-grow: 1;
+}
+
+.register-button {
+    min-width: 180px;
+    padding: 10px 20px;
+    font-size: 14px;
+    height: 42px;
+}
+
+/* Asegurar que los inputs tengan el mismo estilo */
+.product-row input[type="text"],
+.product-row input[type="number"],
+.product-row select {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    height: 38px;
+    box-sizing: border-box;
+}
+
+/* Responsive para la nueva estructura */
+@media (max-width: 768px) {
+    .product-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .product-row label {
+        text-align: left;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 4px;
+        font-size: 13px;
+    }
+
+    .product-row input[type="text"],
+    .product-row input[type="number"],
+    .product-row select {
+        width: 100%;
+        max-width: none;
+        font-size: 13px;
+        padding: 6px 10px;
+        height: 36px;
+    }
+
+    .register-button {
+        width: 100%;
+        min-width: auto;
+        height: 40px;
+        font-size: 13px;
+    }
+}
