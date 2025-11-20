@@ -9,6 +9,7 @@ import SalesImage from '../../img/sales_icon.png';
 const Products = () => {
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -23,17 +24,37 @@ const Products = () => {
     });
 
     const [editingId, setEditingId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 3;
 
     // Cargar productos al montar el componente
     useEffect(() => {
         loadProducts();
     }, []);
 
+    // Filtrar productos cuando cambia el término de búsqueda
+    useEffect(() => {
+        if (searchTerm.trim() === '') {
+            setFilteredProducts(products);
+        } else {
+            const filtered = products.filter(product =>
+                product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.productCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.unit.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredProducts(filtered);
+        }
+        setCurrentPage(1); // Resetear a primera página al buscar
+    }, [searchTerm, products]);
+
     const loadProducts = async () => {
         try {
             setLoading(true);
             const data = await productService.getAll();
             setProducts(data);
+            setFilteredProducts(data);
         } catch (error) {
             setError('Error al cargar los productos');
             console.error('Error loading products:', error);
@@ -136,6 +157,20 @@ const Products = () => {
         return '$0.00';
     };
 
+    // Paginación
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
         <div className="module-container">
             <div className="header">
@@ -147,7 +182,7 @@ const Products = () => {
                     <img src={SalesImage} alt="Productos" className="header-icon" />
                     <span className="version-menu">VERSION 1.0</span>
                     <button
-                        className="button button-regresar-menu"
+                        className="button"
                         onClick={() => navigate('/menu')}
                     >
                         REGRESAR
@@ -235,7 +270,7 @@ const Products = () => {
                         />
                     </div>
 
-                    <div className="button-group">
+                    <div className="button-group-products">
                         <button type="submit" className="button primary">
                             {editingId ? 'ACTUALIZAR' : 'REGISTRAR'}
                         </button>
@@ -251,56 +286,110 @@ const Products = () => {
                 </form>
             </div>
 
-            {/* Lista de Productos */}
+            {/* Lista de Productos Mejorada */}
             <div className="products-list">
-                <h2>INVENTARIO DE PRODUCTOS</h2>
+                <div className="products-list-header">
+                    <h2>INVENTARIO DE PRODUCTOS</h2>
+                    <div className="search-container">
+                        <input
+                            type="text"
+                            placeholder="Buscar por nombre, código, descripción o unidad..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="search-input"
+                        />
+                        <div className="search-results-info">
+                            {filteredProducts.length} de {products.length} productos encontrados
+                        </div>
+                    </div>
+                </div>
+
                 {loading ? (
                     <div className="loading">Cargando productos...</div>
                 ) : (
-                    <div className="data-table-container">
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    <th>CÓDIGO</th>
-                                    <th>PRODUCTO</th>
-                                    <th>PRECIO UN.</th>
-                                    <th>IVA</th>
-                                    <th>UNIDAD</th>
-                                    <th>DESCRIPCIÓN</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {products.map((product) => (
-                                    <tr key={product.id}>
-                                        <td>{product.productCode}</td>
-                                        <td>{product.name}</td>
-                                        <td>{formatPrice(product.unitPrice)}</td>
-                                        <td>{product.iva}%</td>
-                                        <td>{product.unit}</td>
-                                        <td>{product.description || '-'}</td>
-                                        <td>
-                                            <button
-                                                className="button small-button secondary"
-                                                onClick={() => handleEdit(product)}
-                                            >
-                                                EDITAR
-                                            </button>
-                                            <button
-                                                className="button small-button danger"
-                                                onClick={() => handleDelete(product.id)}
-                                            >
-                                                ELIMINAR
-                                            </button>
-                                        </td>
+                    <>
+                        <div className="data-table-container">
+                            <table className="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CÓDIGO</th>
+                                        <th>PRODUCTO</th>
+                                        <th>PRECIO UN.</th>
+                                        <th>IVA</th>
+                                        <th>UNIDAD</th>
+                                        <th>DESCRIPCIÓN</th>
+                                        <th>ACCIONES</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {currentProducts.map((product) => (
+                                        <tr key={product.id}>
+                                            <td className="product-code">{product.productCode}</td>
+                                            <td className="product-name">{product.name}</td>
+                                            <td className="product-price">{formatPrice(product.unitPrice)}</td>
+                                            <td className="product-iva">{product.iva}%</td>
+                                            <td className="product-unit">
+                                                <span className={`unit-badge ${product.unit.toLowerCase()}`}>
+                                                    {product.unit}
+                                                </span>
+                                            </td>
+                                            <td>{product.description || '-'}</td>
+                                            <td className="actions">
+                                                <button
+                                                    className="button small-button secondary"
+                                                    onClick={() => handleEdit(product)}
+                                                >
+                                                    EDITAR
+                                                </button>
+                                                <button
+                                                    className="button small-button danger"
+                                                    onClick={() => handleDelete(product.id)}
+                                                >
+                                                    ELIMINAR
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {filteredProducts.length === 0 && (
+                                <div className="no-data">
+                                    {searchTerm ? 'No se encontraron productos que coincidan con la búsqueda' : 'No hay productos registrados'}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Paginación */}
+                        {filteredProducts.length > productsPerPage && (
+                            <div className="pagination">
+                                <button
+                                    className="pagination-button"
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                >
+                                    ‹ Anterior
+                                </button>
+
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                    <button
+                                        key={page}
+                                        className={`pagination-button ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(page)}
+                                    >
+                                        {page}
+                                    </button>
                                 ))}
-                            </tbody>
-                        </table>
-                        {products.length === 0 && (
-                            <div className="no-data">No hay productos registrados</div>
+
+                                <button
+                                    className="pagination-button"
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Siguiente ›
+                                </button>
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
 
