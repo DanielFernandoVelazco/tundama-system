@@ -1,6 +1,7 @@
 .sales-purchases-module-container {
     max-width: 1200px;
     margin: 20px auto;
+    padding: 0 15px;
 }
 
 .info-text-purchases {
@@ -9,81 +10,85 @@
     margin-left: 10px;
 }
 
-/* Secciones principales */
+/* Secciones principales compactas */
 .buyer-seller-section,
 .product-section,
 .items-table-section,
 .totals-section {
     background-color: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #3ABDBF;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
     border-bottom: 2px solid #3ABDBF;
     text-align: center;
 }
 
-/* Grid de comprador y vendedor */
+/* Grid de comprador y vendedor más compacto */
 .buyer-seller-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 20px;
 }
 
 .buyer-info,
 .seller-info {
-    padding: 20px;
+    padding: 15px;
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: #f9f9f9;
 }
 
 .buyer-info h3,
 .seller-info h3 {
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
 }
 
-/* Form groups - ALINEACIÓN CONSISTENTE */
+/* Form groups más compactos */
 .form-group-purchases {
     display: flex;
     align-items: center;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .form-group-purchases label {
-    width: 200px;
+    width: 180px;
     text-align: right;
-    margin-right: 15px;
+    margin-right: 12px;
     font-weight: bold;
     color: #555;
-    min-width: 120px;
+    min-width: 100px;
     flex-shrink: 0;
+    font-size: 14px;
 }
 
 .form-group-purchases input[type="text"],
 .form-group-purchases input[type="number"],
-.form-group-purchases select,
-.form-group-purchases textarea {
+.form-group-purchases select {
     flex-grow: 1;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
+    font-size: 14px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    max-width: 450px;
+    max-width: 300px;
+    height: 38px;
+    box-sizing: border-box;
 }
 
 .form-group-purchases input.read-only-input {
@@ -94,16 +99,16 @@
 }
 
 .form-group-purchases input.read-only-input.small-input {
-    max-width: 150px;
+    max-width: 120px;
 }
 
-/* Estilos específicos para productos */
+/* Estilos específicos para productos más compactos */
 .product-row {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .product-select {
-    max-width: 500px !important;
+    max-width: 400px !important;
 }
 
 .product-description {
@@ -111,12 +116,13 @@
     width: 100% !important;
 }
 
-/* Fila de detalles del producto */
+/* Fila de detalles del producto más compacta */
 .product-details-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    gap: 20px;
+    grid-template-columns: 120px 140px 100px auto;
+    gap: 15px;
     align-items: end;
+    margin-top: 15px;
 }
 
 .product-detail-group {
@@ -124,47 +130,80 @@
 }
 
 .product-detail-group label {
-    width: 150px;
-    font-size: 16px;
+    width: auto;
+    font-size: 14px;
+    text-align: left;
+    margin-right: 8px;
+    min-width: auto;
 }
 
 .quantity-input {
-    max-width: 100px !important;
+    max-width: 80px !important;
 }
 
 .price-input {
-    max-width: 120px !important;
+    max-width: 100px !important;
 }
 
 .iva-select {
-    max-width: 100px !important;
+    max-width: 80px !important;
 }
 
 .product-action-group {
     display: flex;
     align-items: center;
     height: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 0;
 }
 
 .register-button {
     white-space: nowrap;
-    min-width: 180px;
+    min-width: 160px;
+    padding: 8px 16px;
+    font-size: 14px;
+    height: 38px;
 }
 
-/* Tabla de items */
+/* Tabla de items compacta */
 .items-table-section {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
-/* Totales */
+.data-table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Totales más compactos */
+.totals-section {
+    margin-top: 15px;
+}
+
 .price-iva-total-purchases {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin: 20px 0;
-    font-size: 18px;
+    gap: 30px;
+    margin: 15px 0;
+    font-size: 16px;
     font-weight: bold;
     color: #333;
 }
@@ -172,110 +211,116 @@
 .price-iva-total-purchases span {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .price-iva-total-purchases .total-amount-purchases {
     color: #3ABDBF;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .price-iva-total-purchases input {
-    width: 150px;
-    padding: 10px 15px;
+    width: 120px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
+    font-size: 14px;
     text-align: right;
     font-weight: bold;
     background-color: #f9f9f9;
+    height: 38px;
 }
 
-/* Botones */
+/* Botones compactos */
 .button-group-purchases {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+    gap: 15px;
+    margin-top: 20px;
     width: 100%;
-    padding-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid #eee;
 }
 
 .large-button {
-    padding: 12px 30px;
-    font-size: 16px;
-    min-width: 200px;
+    padding: 10px 25px;
+    font-size: 14px;
+    min-width: 180px;
+    height: 42px;
 }
 
-/* Historial de compras */
+/* Historial de compras compacto */
 .purchases-history {
     background-color: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .purchases-history-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .purchases-history-header h2 {
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 20px;
 }
 
-/* Búsqueda en historial */
+/* Búsqueda en historial compacta */
 .search-container-purchases {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
 .search-input-purchases {
     width: 100%;
-    max-width: 500px;
-    padding: 10px 15px;
+    max-width: 400px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    height: 38px;
 }
 
 .search-results-info-purchases {
-    font-size: 14px;
+    font-size: 13px;
     color: #666;
     text-align: center;
 }
 
-/* Paginación */
+/* Paginación compacta */
 .pagination-purchases {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-top: 20px;
-    padding-top: 20px;
+    gap: 6px;
+    margin-top: 15px;
+    padding-top: 15px;
     border-top: 1px solid #e0e0e0;
 }
 
 .pagination-button-purchases {
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px solid #3ABDBF;
     background-color: white;
     color: #3ABDBF;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    min-width: 40px;
+    font-size: 13px;
+    min-width: 35px;
     text-align: center;
     transition: all 0.3s ease;
+    height: 32px;
 }
 
 .pagination-button-purchases:hover:not(:disabled) {
@@ -296,70 +341,142 @@
     font-weight: bold;
 }
 
-/* Responsive */
+/* Responsive mejorado */
 @media (max-width: 768px) {
+    .sales-purchases-module-container {
+        padding: 0 10px;
+        margin: 10px auto;
+    }
+
     .buyer-seller-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 15px;
+    }
+
+    .buyer-info,
+    .seller-info {
+        padding: 12px;
     }
 
     .product-details-row {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 12px;
     }
 
     .form-group-purchases {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
+        gap: 6px;
+        margin-bottom: 10px;
     }
 
     .form-group-purchases label {
         text-align: left;
         width: 100%;
         margin-right: 0;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
+        font-size: 13px;
     }
 
     .form-group-purchases input[type="text"],
     .form-group-purchases input[type="number"],
-    .form-group-purchases select,
-    .form-group-purchases textarea {
+    .form-group-purchases select {
         width: 100%;
         max-width: none;
+        font-size: 13px;
+        padding: 6px 10px;
+        height: 36px;
+    }
+
+    .product-detail-group label {
+        width: 100%;
+        text-align: left;
     }
 
     .price-iva-total-purchases {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .price-iva-total-purchases input {
+        width: 100px;
+        font-size: 13px;
+        height: 36px;
     }
 
     .button-group-purchases {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 12px;
+    }
+
+    .large-button {
+        min-width: 160px;
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .register-button {
+        min-width: 140px;
+        height: 36px;
+        font-size: 13px;
     }
 
     .purchases-history {
-        padding: 20px;
+        padding: 15px;
     }
 
     .purchases-history-header h2 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .search-input-purchases {
         max-width: 100%;
+        height: 36px;
     }
 
     .pagination-purchases {
         flex-wrap: wrap;
-        gap: 5px;
+        gap: 4px;
     }
 
     .pagination-button-purchases {
-        padding: 6px 10px;
+        padding: 5px 8px;
         font-size: 12px;
-        min-width: 35px;
+        min-width: 30px;
+        height: 30px;
+    }
+
+    .data-table {
+        font-size: 13px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 6px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 16px;
+    }
+
+    .buyer-info h3,
+    .seller-info h3 {
+        font-size: 14px;
+    }
+
+    .form-group-purchases {
+        font-size: 14px;
+    }
+
+    .product-details-row {
+        grid-template-columns: 1fr;
+    }
+
+    .price-iva-total-purchases {
+        font-size: 13px;
     }
 }
