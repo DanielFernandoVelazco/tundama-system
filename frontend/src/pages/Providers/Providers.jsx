@@ -197,7 +197,7 @@ const Providers = () => {
                                 required
                                 className="medium-input"
                             />
-                            <div className="nit-badge">
+                            <div className="nit-fixed-badge">
                                 NIT
                             </div>
                         </div>
@@ -282,8 +282,8 @@ const Providers = () => {
                                     <tr>
                                         <th>CÓDIGO</th>
                                         <th>EMPRESA</th>
-                                        <th>NIT</th>
-                                        <th>DIRECCIÓN</th>
+                                        <th>IDENTIFICACIÓN</th>
+                                        <th>TIPO</th>
                                         <th>TELÉFONO</th>
                                         <th>ACCIONES</th>
                                     </tr>
@@ -294,7 +294,11 @@ const Providers = () => {
                                             <td className="provider-code">{provider.providerCode}</td>
                                             <td className="provider-company">{provider.companyName}</td>
                                             <td className="provider-identification">{provider.identification}</td>
-                                            <td>{provider.address}</td>
+                                            <td className="provider-type">
+                                                <span className="type-badge nit">
+                                                    NIT
+                                                </span>
+                                            </td>
                                             <td className="provider-phone">{provider.phone}</td>
                                             <td className="actions">
                                                 <button
