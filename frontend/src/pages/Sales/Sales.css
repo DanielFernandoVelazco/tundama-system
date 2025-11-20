@@ -1,3 +1,44 @@
+/* Sales.css - ESTILOS ESPECÍFICOS PARA EL COMPONENTE SALES - REFACTORIZADO */
+
+/* Header de la lista de ventas */
+.sales-list-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sales-list-header h2 {
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 24px;
+}
+
+/* Contenedor de búsqueda */
+.search-container-sales {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input-sales {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.search-results-info-sales {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+/* Layout principal de ventas */
 .sales-purchases-module-container {
     max-width: 1000px;
     margin: 20px auto;
@@ -13,6 +54,7 @@
     margin-left: 10px;
 }
 
+/* Layout de formulario en grid */
 .sales-purchases-layout-sales {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -30,13 +72,65 @@
     grid-column: span 2;
 }
 
+/* ESTILOS ESPECÍFICOS DEL FORMULARIO DE VENTAS - ALINEACIÓN MEJORADA */
+
+.form-group-sales {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.form-group-sales label {
+    width: 160px;
+    text-align: right;
+    margin-right: 15px;
+    font-weight: bold;
+    color: #555;
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.form-group-sales input,
+.form-group-sales select,
+.form-group-sales textarea {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+}
+
+.form-group-sales input.read-only-input {
+    background-color: #f0f0f0;
+    color: #666;
+    cursor: default;
+    border: 1px dashed #bbb;
+}
+
+.form-group-sales input.small-input {
+    max-width: 150px;
+}
+
+.form-group-sales input.extra-small-input {
+    max-width: 80px;
+}
+
+.form-group-sales input.full-width-input {
+    max-width: none;
+    width: 100%;
+}
+
+/* Grupos específicos para detalles de productos */
 .form-group-sales.product-details-group {
     display: flex;
     align-items: center;
     gap: 20px;
     width: 100%;
     margin-bottom: 15px;
-    font-size: 18px;
 }
 
 .form-group-sales.product-details-group label {
@@ -78,6 +172,7 @@
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Sección de precios e IVA */
 .price-iva-total-sales {
     display: flex;
     width: 100%;
@@ -113,12 +208,24 @@
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Acciones inferiores */
 .bottom-actions-row-sales {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
     margin-top: 20px;
+}
+
+/* Grupo de botones corregido - SIGUIENDO EL PATRÓN DE CLIENTS */
+.button-group-sales {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
 }
 
 .bottom-actions-row-sales .button-group-sales {
@@ -130,6 +237,7 @@
     gap: 20px;
 }
 
+/* Sección de historial */
 .sales-history {
     background-color: white;
     padding: 30px;
@@ -142,115 +250,100 @@
     text-align: center;
     margin-bottom: 20px;
     color: #333;
+    text-transform: uppercase;
 }
 
-/* Estilos para formularios específicos de Sales */
-.form-group-sales {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-    font-size: 18px;
-}
-
-.form-group-sales label {
-    width: 160px;
-    text-align: right;
-    margin-right: 15px;
+/* Columnas específicas de la tabla de ventas */
+.sale-code {
     font-weight: bold;
-    color: #555;
-    min-width: 120px;
+    color: #2c3e50;
 }
 
-.form-group-sales input,
-.form-group-sales select {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    max-width: 450px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+.sale-client {
+    color: #34495e;
 }
 
-.form-group-sales input.read-only-input {
-    background-color: #f0f0f0;
-    color: #666;
-    cursor: default;
-    border: 1px dashed #bbb;
+.sale-date {
+    font-family: 'Courier New', monospace;
 }
 
-.form-group-sales input.small-input {
-    max-width: 150px;
+.sale-total {
+    font-weight: bold;
+    color: #27ae60;
 }
 
-.form-group-sales input.extra-small-input {
-    max-width: 80px;
+.sale-products .products-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #e8f5e8;
+    color: #2e7d32;
 }
 
-.form-group-sales input.full-width-input {
-    max-width: none;
-    width: 100%;
+/* Acciones en la tabla */
+.actions-sales {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
 }
 
-/* Botones específicos para Sales */
-.button-group-sales .button {
+/* Paginación - ESTILOS ESPECÍFICOS SIGUIENDO CLIENTS */
+.pagination-sales {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.pagination-button-sales {
+    padding: 8px 12px;
+    border: 1px solid #3ABDBF;
+    background-color: white;
+    color: #3ABDBF;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pagination-button-sales:hover:not(:disabled) {
     background-color: #3ABDBF;
     color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-transform: uppercase;
+}
+
+.pagination-button-sales:disabled {
+    background-color: #f5f5f5;
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-button-sales.active {
+    background-color: #3ABDBF;
+    color: white;
     font-weight: bold;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    min-width: 150px;
 }
 
-.button-group-sales .button:hover {
-    background-color: #2CA7A9;
-}
-
-.button-group-sales .button.primary {
-    background-color: #28a745;
-}
-
-.button-group-sales .button.primary:hover {
-    background-color: #218838;
-}
-
-.button-group-sales .button.secondary {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.button-group-sales .button.secondary:hover {
-    background-color: #e0a800;
-}
-
-.button-group-sales .button.danger {
-    background-color: #dc3545;
-}
-
-.button-group-sales .button.danger:hover {
-    background-color: #c82333;
-}
-
-.button-group-sales .button.small-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    min-width: auto;
-}
-
-/* Responsive */
+/* Responsive específico para Sales - MEJORADO */
 @media (max-width: 768px) {
     .sales-purchases-module-container {
         margin: 10px;
         padding: 20px;
         max-width: none;
+    }
+
+    .sales-list-header h2 {
+        font-size: 20px;
+    }
+
+    .search-input-sales {
+        max-width: 100%;
     }
 
     .sales-purchases-layout-sales {
@@ -260,6 +353,26 @@
     .sales-purchases-layout-sales .form-group-sales,
     .sales-purchases-layout-sales .form-group-sales:last-child {
         grid-column: span 1;
+    }
+
+    .form-group-sales {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .form-group-sales label {
+        text-align: left;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .form-group-sales input,
+    .form-group-sales select,
+    .form-group-sales textarea {
+        width: 100%;
+        max-width: none;
     }
 
     .form-group-sales.product-details-group {
@@ -315,27 +428,26 @@
         width: 100%;
     }
 
-    .button-group-sales .button {
-        width: 100%;
-        max-width: 250px;
-    }
-
-    .form-group-sales {
+    .button-group-sales {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+        align-items: center;
+        gap: 15px;
     }
 
-    .form-group-sales label {
-        text-align: left;
-        width: 100%;
-        margin-right: 0;
+    .actions-sales {
+        flex-direction: column;
+        gap: 5px;
     }
 
-    .form-group-sales input,
-    .form-group-sales select {
-        width: 100%;
-        max-width: none;
+    .pagination-sales {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .pagination-button-sales {
+        padding: 6px 10px;
+        font-size: 12px;
+        min-width: 35px;
     }
 
     .sales-history {
