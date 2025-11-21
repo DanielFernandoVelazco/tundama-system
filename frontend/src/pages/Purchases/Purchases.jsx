@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { purchaseService } from '../../services/purchaseService';
 import { providerService } from '../../services/providerService';
 import { productService } from '../../services/productService';
@@ -10,6 +11,7 @@ import CustomerImage from '../../img/customer_icon.png';
 
 const Purchases = () => {
     const navigate = useNavigate();
+    const { user: currentUser } = useAuth(); // ← Obtener usuario del contexto
 
     // Estados principales
     const [providers, setProviders] = useState([]);
@@ -23,7 +25,6 @@ const Purchases = () => {
     // Estado del formulario de compra
     const [purchaseData, setPurchaseData] = useState({
         providerId: '',
-        buyerId: 'EC-057', // ID del comprador fijo
         items: []
     });
 
@@ -211,7 +212,6 @@ const Purchases = () => {
             // Resetear formulario
             setPurchaseData({
                 providerId: '',
-                buyerId: 'EC-057',
                 items: []
             });
             setTotals({
@@ -289,7 +289,7 @@ const Purchases = () => {
                                     <input
                                         type="text"
                                         id="id_comprador"
-                                        value={purchaseData.buyerId}
+                                        value={currentUser?.id}
                                         readOnly
                                         className="read-only-input small-input"
                                     />
@@ -299,7 +299,7 @@ const Purchases = () => {
                                     <input
                                         type="text"
                                         id="nombre_comprador"
-                                        value="EMPRESA TUNDAMA LTDA"
+                                        value={currentUser?.name}
                                         readOnly
                                         className="read-only-input"
                                     />
@@ -512,7 +512,7 @@ const Purchases = () => {
                             type="button"
                             className="button secondary"
                             onClick={() => {
-                                setPurchaseData({ providerId: '', buyerId: 'EC-057', items: [] });
+                                setPurchaseData({ providerId: '', items: [] });
                                 setError('');
                                 setSuccess('');
                             }}
