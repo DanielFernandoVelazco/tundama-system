@@ -1,3 +1,4 @@
+// Sales.jsx - ESTRUCTURA ACTUALIZADA CON NUEVOS ESTILOS
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saleService } from '../../services/saleService';
@@ -35,7 +36,7 @@ const Sales = () => {
     // Estado para búsqueda y paginación
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const salesPerPage = 3; // CAMBIADO: Ahora son 3 registros por página
+    const salesPerPage = 3;
 
     // Estado para cálculos
     const [totals, setTotals] = useState({
@@ -93,7 +94,7 @@ const Sales = () => {
             );
             setFilteredSales(filtered);
         }
-        setCurrentPage(1); // Resetear a primera página al buscar
+        setCurrentPage(1);
     }, [searchTerm, sales]);
 
     const loadInitialData = async () => {
@@ -217,7 +218,7 @@ const Sales = () => {
         }
     };
 
-    // Paginación - ACTUALIZADA: 3 registros por página
+    // Paginación
     const indexOfLastSale = currentPage * salesPerPage;
     const indexOfFirstSale = indexOfLastSale - salesPerPage;
     const currentSales = filteredSales.slice(indexOfFirstSale, indexOfLastSale);
@@ -265,185 +266,237 @@ const Sales = () => {
 
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
-                    {/* Información de la venta */}
-                    <div className="sales-purchases-layout-sales">
-                        <div className="form-group-sales">
-                            <label htmlFor="fecha_venta">FECHA</label>
-                            <input
-                                type="date"
-                                id="fecha_venta"
-                                value={new Date().toISOString().split('T')[0]}
-                                readOnly
-                                className="read-only-input"
-                            />
-                        </div>
+                    {/* Información de la venta - ESTRUCTURA ACTUALIZADA */}
+                    <div className="client-sales-section">
+                        <div className="section-title-sales">INFORMACIÓN DE LA VENTA</div>
 
-                        <div className="form-group-sales">
-                            <label htmlFor="clientId">ID CLIENTE</label>
+                        <div className="client-grid-sales">
+                            {/* Información del Cliente */}
+                            <div className="client-info-sales">
+                                <h3>CLIENTE</h3>
+                                <div className="form-group-sales">
+                                    <label htmlFor="fecha_venta">FECHA</label>
+                                    <input
+                                        type="date"
+                                        id="fecha_venta"
+                                        value={new Date().toISOString().split('T')[0]}
+                                        readOnly
+                                        className="read-only-input small-input"
+                                    />
+                                </div>
+                                <div className="form-group-sales">
+                                    <label htmlFor="clientId">ID CLIENTE</label>
+                                    <select
+                                        id="clientId"
+                                        name="clientId"
+                                        value={saleData.clientId}
+                                        onChange={handleClientChange}
+                                        className="small-input"
+                                        required
+                                    >
+                                        <option value="">Seleccione cliente</option>
+                                        {clients.map(client => (
+                                            <option key={client.id} value={client.id}>
+                                                {client.identification} - {client.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="form-group-sales">
+                                    <label htmlFor="nombre_cliente">NOMBRE CLIENTE</label>
+                                    <input
+                                        type="text"
+                                        id="nombre_cliente"
+                                        value={getClientName(saleData.clientId)}
+                                        readOnly
+                                        className="read-only-input"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Agregar productos - ESTRUCTURA REORGANIZADA EN FILAS */}
+                    <div className="product-section-sales">
+                        <div className="section-title-sales">AGREGAR PRODUCTOS</div>
+
+                        {/* Fila 1: Selección de producto */}
+                        <div className="form-group-sales product-row-sales">
+                            <label htmlFor="productId">PRODUCTO</label>
                             <select
-                                id="clientId"
-                                name="clientId"
-                                value={saleData.clientId}
-                                onChange={handleClientChange}
-                                className="small-input"
-                                required
+                                id="productId"
+                                name="productId"
+                                value={currentItem.productId}
+                                onChange={handleItemChange}
+                                className="product-select-sales"
                             >
-                                <option value="">Seleccione cliente</option>
-                                {clients.map(client => (
-                                    <option key={client.id} value={client.id}>
-                                        {client.identification} - {client.name}
+                                <option value="">Seleccione producto</option>
+                                {products.map(product => (
+                                    <option key={product.id} value={product.id}>
+                                        {product.productCode} - {product.name}
                                     </option>
                                 ))}
                             </select>
                         </div>
 
-                        <div className="form-group-sales">
-                            <label htmlFor="nombre_cliente">NOMBRE CLIENTE</label>
+                        {/* Fila 2: Detalles del producto */}
+                        <div className="form-group-sales product-row-sales">
+                            <label htmlFor="product_description">DETALLE</label>
                             <input
                                 type="text"
-                                id="nombre_cliente"
-                                value={getClientName(saleData.clientId)}
+                                id="product_description"
+                                value={currentItem.productId ? getProductDetails(currentItem.productId)?.description || '' : ''}
+                                placeholder="Detalle del producto"
                                 readOnly
-                                className="read-only-input full-width-input"
+                                className="product-description-sales"
                             />
+                        </div>
+
+                        {/* Fila 3: Precio Unitario (solo lectura) */}
+                        <div className="form-group-sales product-row-sales">
+                            <label htmlFor="unit_price">PRECIO UNITARIO</label>
+                            <input
+                                type="text"
+                                id="unit_price"
+                                value={currentItem.productId ? formatPrice(getProductDetails(currentItem.productId)?.unitPrice || 0) : ''}
+                                readOnly
+                                className="price-display-sales read-only-input"
+                            />
+                        </div>
+
+                        {/* Fila 4: IVA (solo lectura) */}
+                        <div className="form-group-sales product-row-sales">
+                            <label htmlFor="iva_display">IVA %</label>
+                            <input
+                                type="text"
+                                id="iva_display"
+                                value={currentItem.productId ? `${getProductDetails(currentItem.productId)?.iva || 0}%` : ''}
+                                readOnly
+                                className="iva-display-sales read-only-input"
+                            />
+                        </div>
+
+                        {/* Fila 5: Cantidad */}
+                        <div className="form-group-sales product-row-sales">
+                            <label htmlFor="quantity">CANTIDAD</label>
+                            <input
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                value={currentItem.quantity}
+                                onChange={handleItemChange}
+                                min="1"
+                                className="quantity-input-sales"
+                            />
+                        </div>
+
+                        {/* Fila 6: Botón Agregar */}
+                        <div className="form-group-sales product-row-sales">
+                            <label></label>
+                            <button
+                                type="button"
+                                className="button primary register-button-sales"
+                                onClick={addItem}
+                            >
+                                AGREGAR PRODUCTO
+                            </button>
                         </div>
                     </div>
 
-                    {/* Agregar productos */}
-                    <div className="form-group-sales product-details-group">
-                        <label htmlFor="productId">ID PRODUCTO</label>
-                        <select
-                            id="productId"
-                            name="productId"
-                            value={currentItem.productId}
-                            onChange={handleItemChange}
-                            className="small-input"
-                        >
-                            <option value="">Seleccione producto</option>
-                            {products.map(product => (
-                                <option key={product.id} value={product.id}>
-                                    {product.productCode} - {product.name}
-                                </option>
-                            ))}
-                        </select>
-
-                        <label htmlFor="quantity" className="label-inline-sales">CANTIDAD</label>
-                        <input
-                            type="number"
-                            id="quantity"
-                            name="quantity"
-                            value={currentItem.quantity}
-                            onChange={handleItemChange}
-                            min="1"
-                            className="extra-small-input"
-                        />
-                    </div>
-
-                    <div className="form-group-sales product-detail-actions">
-                        <input
-                            type="text"
-                            value={currentItem.productId ? getProductDetails(currentItem.productId)?.description || '' : ''}
-                            placeholder="Detalle del producto"
-                            readOnly
-                            className="full-width-input"
-                        />
-                        <button
-                            type="button"
-                            className="button primary small-button"
-                            onClick={addItem}
-                        >
-                            AGREGAR
-                        </button>
-                    </div>
-
-                    {/* Tabla de items */}
+                    {/* Tabla de items agregados */}
                     {saleData.items.length > 0 && (
-                        <div className="data-table-container">
-                            <table className="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>PRODUCTO</th>
-                                        <th>IVA %</th>
-                                        <th>UNIDAD</th>
-                                        <th>PRECIO UN.</th>
-                                        <th>CANTIDAD</th>
-                                        <th>PRECIO TOTAL</th>
-                                        <th>ACCIÓN</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {saleData.items.map((item, index) => {
-                                        const product = getProductDetails(item.productId);
-                                        if (!product) return null;
+                        <div className="items-table-section-sales">
+                            <div className="section-title-sales">PRODUCTOS AGREGADOS</div>
+                            <div className="data-table-container">
+                                <table className="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>PRODUCTO</th>
+                                            <th>IVA</th>
+                                            <th>UNIDAD</th>
+                                            <th>PRECIO UN.</th>
+                                            <th>CANTIDAD</th>
+                                            <th>PRECIO TOTAL</th>
+                                            <th>ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {saleData.items.map((item, index) => {
+                                            const product = getProductDetails(item.productId);
+                                            if (!product) return null;
 
-                                        const itemTotal = product.unitPrice * item.quantity;
-                                        const itemIva = itemTotal * (product.iva / 100);
-                                        const totalWithIva = itemTotal + itemIva;
+                                            const itemTotal = product.unitPrice * item.quantity;
+                                            const itemIva = itemTotal * (product.iva / 100);
+                                            const totalWithIva = itemTotal + itemIva;
 
-                                        return (
-                                            <tr key={index}>
-                                                <td>{index + 1}</td>
-                                                <td>{product.name}</td>
-                                                <td>{product.iva}%</td>
-                                                <td>{product.unit}</td>
-                                                <td>{formatPrice(product.unitPrice)}</td>
-                                                <td>{item.quantity}</td>
-                                                <td>{formatPrice(totalWithIva)}</td>
-                                                <td>
-                                                    <button
-                                                        type="button"
-                                                        className="button danger small-button"
-                                                        onClick={() => removeItem(index)}
-                                                    >
-                                                        QUITAR
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{product.name}</td>
+                                                    <td>{product.iva}%</td>
+                                                    <td>{product.unit}</td>
+                                                    <td>{formatPrice(product.unitPrice)}</td>
+                                                    <td>{item.quantity}</td>
+                                                    <td>{formatPrice(totalWithIva)}</td>
+                                                    <td>
+                                                        <button
+                                                            type="button"
+                                                            className="button danger small-button"
+                                                            onClick={() => removeItem(index)}
+                                                        >
+                                                            QUITAR
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     )}
 
                     {/* Totales */}
-                    <div className="price-iva-total-sales">
-                        <span>SUBTOTAL: <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input" /></span>
-                        <span>IVA: <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input" /></span>
-                        <span className="total-amount-sales">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
-                    </div>
+                    {saleData.items.length > 0 && (
+                        <div className="totals-section-sales">
+                            <div className="section-title-sales">TOTALES DE LA VENTA</div>
+                            <div className="price-iva-total-sales">
+                                <span>SUBTOTAL: <input type="text" value={formatPrice(totals.subtotal)} readOnly className="read-only-total-input" /></span>
+                                <span>IVA: <input type="text" value={formatPrice(totals.iva)} readOnly className="read-only-total-input" /></span>
+                                <span className="total-amount-sales">TOTAL: <input type="text" value={formatPrice(totals.total)} readOnly className="read-only-total-input" /></span>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Botones de acción */}
-                    <div className="bottom-actions-row-sales">
-                        <div className="button-group-sales">
-                            <button type="submit" className="button primary">
-                                VENDER
-                            </button>
-                            <button
-                                type="button"
-                                className="button secondary"
-                                onClick={() => {
-                                    setSaleData({ clientId: '', items: [] });
-                                    setError('');
-                                    setSuccess('');
-                                }}
-                            >
-                                LIMPIAR
-                            </button>
-                        </div>
+                    <div className="button-group-sales">
+                        <button type="submit" className="button primary large-button-sales">
+                            REGISTRAR VENTA
+                        </button>
+                        <button
+                            type="button"
+                            className="button secondary"
+                            onClick={() => {
+                                setSaleData({ clientId: '', items: [] });
+                                setError('');
+                                setSuccess('');
+                            }}
+                        >
+                            LIMPIAR FORMULARIO
+                        </button>
                     </div>
                 </form>
             </div>
 
-            {/* Historial de Ventas - CON PAGINACIÓN DE 3 REGISTROS */}
+            {/* Historial de Ventas - ESTRUCTURA ACTUALIZADA */}
             <div className="sales-history">
-                <div className="sales-list-header">
+                <div className="sales-history-header">
                     <h2>HISTORIAL DE VENTAS</h2>
                     <div className="search-container-sales">
                         <input
                             type="text"
-                            placeholder="Buscar por código, cliente o total..."
+                            placeholder="Buscar por código, cliente, total o fecha..."
                             value={searchTerm}
                             onChange={handleSearchChange}
                             className="search-input-sales"
@@ -463,10 +516,10 @@ const Sales = () => {
                                 <thead>
                                     <tr>
                                         <th>CÓDIGO</th>
-                                        <th>FECHA</th>
                                         <th>CLIENTE</th>
                                         <th>PRODUCTOS</th>
                                         <th>TOTAL</th>
+                                        <th>FECHA</th>
                                         <th>ACCIONES</th>
                                     </tr>
                                 </thead>
@@ -474,14 +527,14 @@ const Sales = () => {
                                     {currentSales.map((sale) => (
                                         <tr key={sale.id}>
                                             <td className="sale-code">{sale.saleCode}</td>
-                                            <td className="sale-date">{new Date(sale.date).toLocaleDateString()}</td>
                                             <td className="sale-client">{sale.client?.name}</td>
-                                            <td className="sale-products">
+                                            <td>
                                                 <span className="products-badge">
                                                     {sale.items?.length || 0} productos
                                                 </span>
                                             </td>
                                             <td className="sale-total">{formatPrice(sale.total)}</td>
+                                            <td className="sale-date">{new Date(sale.createdAt).toLocaleDateString()}</td>
                                             <td className="actions-sales">
                                                 <button
                                                     className="button small-button danger"
@@ -507,7 +560,7 @@ const Sales = () => {
                             )}
                         </div>
 
-                        {/* Paginación - ACTIVADA CADA 3 REGISTROS */}
+                        {/* Paginación */}
                         {filteredSales.length > salesPerPage && (
                             <div className="pagination-sales">
                                 <button
