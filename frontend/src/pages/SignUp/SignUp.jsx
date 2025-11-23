@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { authService } from '../../services/authService'; // ← Cambiar a authService
+import { useNavigate } from 'react-router-dom';
+import { authService } from '../../services/authService';
 import './SignUp.css';
 import '../../styles/shared-styles.css';
 import LogoImage from '../../img/logo.png';
@@ -111,9 +111,12 @@ const SignUp = () => {
                 <div className="header-right">
                     <img src={UserImage} alt="Usuario" className="header-icon" />
                     <span className="version-menu">VERSION 1.0</span>
-                    <Link to="/login" className="button button-regresar-signup">
+                    <button
+                        className="button"
+                        onClick={() => navigate('/login')}
+                    >
                         REGRESAR
-                    </Link>
+                    </button>
                 </div>
             </div>
 
@@ -124,7 +127,8 @@ const SignUp = () => {
             <div className="form-area">
                 <form onSubmit={handleSubmit}>
 
-                    <div className="form-group-signup">
+                    {/* Grupo de nombre */}
+                    <div className="form-group">
                         <label htmlFor="name">NOMBRE</label>
                         <input
                             type="text"
@@ -137,40 +141,40 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group-signup type-selector">
+                    {/* Grupo de identificación - CON RADIO BUTTONS TRADICIONALES */}
+                    <div className="form-group-clients type-selector">
                         <label htmlFor="identification"># IDENTIFICACIÓN</label>
-                        <input
-                            type="text"
-                            id="identification"
-                            name="identification"
-                            value={formData.identification}
-                            onChange={handleInputChange}
-                            className="medium-input"
-                            required
-                        />
-                        <div className="radio-group">
+                        <div className="identification-input-container">
                             <input
-                                type="radio"
-                                id="nit_signup"
-                                name="identificationType"
-                                value="NIT"
-                                checked={formData.identificationType === 'NIT'}
+                                type="text"
+                                id="identification"
+                                name="identification"
+                                value={formData.identification}
                                 onChange={handleInputChange}
+                                required
+                                className="medium-input"
                             />
-                            <label htmlFor="nit_signup">NIT</label>
-                            <input
-                                type="radio"
-                                id="cedula_signup"
-                                name="identificationType"
-                                value="CEDULA"
-                                checked={formData.identificationType === 'CEDULA'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="cedula_signup">CÉDULA</label>
+                            <div className="segment-buttons">
+                                <button
+                                    type="button"
+                                    className={`segment-button ${formData.identificationType === 'NIT' ? 'active' : ''}`}
+                                    onClick={() => setFormData(prev => ({ ...prev, identificationType: 'NIT' }))}
+                                >
+                                    NIT
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`segment-button ${formData.identificationType === 'CEDULA' ? 'active' : ''}`}
+                                    onClick={() => setFormData(prev => ({ ...prev, identificationType: 'CEDULA' }))}
+                                >
+                                    CÉDULA
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="form-group-signup">
+                    {/* Grupo de teléfono */}
+                    <div className="form-group">
                         <label htmlFor="phone">TELÉFONO</label>
                         <input
                             type="text"
@@ -183,7 +187,8 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group-signup">
+                    {/* Grupo de dirección */}
+                    <div className="form-group">
                         <label htmlFor="address">DIRECCIÓN</label>
                         <input
                             type="text"
@@ -196,7 +201,8 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group-signup">
+                    {/* Grupo de email */}
+                    <div className="form-group">
                         <label htmlFor="email">E-MAIL</label>
                         <input
                             type="email"
@@ -209,7 +215,8 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group-signup">
+                    {/* Grupo de contraseña */}
+                    <div className="form-group">
                         <label htmlFor="password">CONTRASEÑA</label>
                         <input
                             type="password"
@@ -223,7 +230,8 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group-signup">
+                    {/* Grupo de confirmar contraseña */}
+                    <div className="form-group">
                         <label htmlFor="confirmPassword">CONFIRMAR CONTRASEÑA</label>
                         <input
                             type="password"
@@ -237,7 +245,8 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="form-group-signup full-width-textarea-signup">
+                    {/* Grupo de notas */}
+                    <div className="form-group full-width-textarea">
                         <label htmlFor="notes">NOTAS</label>
                         <textarea
                             id="notes"
@@ -248,7 +257,8 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="button-group-signup">
+                    {/* Grupo de botones */}
+                    <div className="button-group">
                         <button
                             type="submit"
                             className="button primary"
