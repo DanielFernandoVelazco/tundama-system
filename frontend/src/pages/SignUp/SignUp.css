@@ -1,4 +1,4 @@
-/* ===== SIGNUP MODULE - ESTILOS OPTIMIZADOS ===== */
+/* ===== SIGNUP MODULE - ESTILOS ESPECÍFICOS ===== */
 .client-module-container {
     max-width: 800px;
     margin: 2rem auto;
@@ -6,7 +6,7 @@
     padding: 0 1rem;
 }
 
-/* ===== GRUPOS DE FORMULARIO ===== */
+/* ===== GRUPOS DE FORMULARIO ESPECÍFICOS ===== */
 .form-group-signup {
     display: flex;
     align-items: center;
@@ -26,7 +26,7 @@
     line-height: 1.5;
 }
 
-/* ===== INPUTS BASE ===== */
+/* ===== INPUTS BASE ESPECÍFICOS ===== */
 .form-group-signup input[type="text"],
 .form-group-signup input[type="password"],
 .form-group-signup input[type="email"],
@@ -50,7 +50,7 @@
     box-shadow: 0 0 0 3px rgba(58, 189, 192, 0.1);
 }
 
-/* ===== VARIANTES DE INPUT ===== */
+/* ===== VARIANTES DE INPUT ESPECÍFICAS ===== */
 .form-group-signup input.read-only-input {
     background-color: #f7fafc;
     color: #718096;
@@ -58,22 +58,6 @@
     cursor: not-allowed;
 }
 
-.form-group-signup input.small-input {
-    max-width: 150px;
-    min-width: 150px;
-}
-
-.form-group-signup input.medium-input {
-    max-width: 250px;
-    min-width: 200px;
-}
-
-.form-group-signup input.full-width-input {
-    max-width: none;
-    width: 100%;
-}
-
-/* ===== TEXTAREA ===== */
 .form-group-signup textarea {
     resize: vertical;
     min-height: 5rem;
@@ -88,8 +72,44 @@
     flex-wrap: nowrap;
 }
 
-.form-group-signup.type-selector input[type="text"] {
-    margin-right: 1rem;
+.form-group-signup.type-selector .identification-input-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+/* RADIO BUTTONS TRADICIONALES CUADRADOS */
+.radio-group-traditional {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: #4a5568;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.radio-label:hover {
+    color: #2d3748;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 0.5rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    cursor: pointer;
+}
+
+.radio-text {
+    font-weight: 500;
 }
 
 .form-group-signup.full-width-textarea-signup {
@@ -100,119 +120,7 @@
     padding-top: 0.75rem;
 }
 
-/* ===== RADIO BUTTONS MEJORADOS ===== */
-.form-group-signup .radio-group {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-shrink: 0;
-}
-
-.form-group-signup .radio-group input[type="radio"] {
-    display: none;
-}
-
-.form-group-signup .radio-group label {
-    position: relative;
-    cursor: pointer;
-    padding-left: 2rem;
-    font-weight: 500;
-    color: #4a5568;
-    text-align: left;
-    width: auto;
-    min-width: auto;
-    margin: 0;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.form-group-signup .radio-group label:hover {
-    color: #2d3748;
-}
-
-.form-group-signup .radio-group label::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.25rem;
-    height: 1.25rem;
-    border: 2px solid #3abdc0;
-    border-radius: 50%;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.form-group-signup .radio-group label::after {
-    content: '';
-    position: absolute;
-    left: 0.4375rem;
-    top: 50%;
-    transform: translateY(-50%) scale(0);
-    width: 0.5rem;
-    height: 0.5rem;
-    background: white;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-}
-
-.form-group-signup .radio-group input[type="radio"]:checked+label::before {
-    background-color: #3abdc0;
-    border-color: #3abdc0;
-}
-
-.form-group-signup .radio-group input[type="radio"]:checked+label::after {
-    transform: translateY(-50%) scale(1);
-}
-
-/* ===== TEXTO INFORMATIVO ===== */
-.info-text {
-    font-size: 0.875rem;
-    color: #718096;
-    margin-left: 0.5rem;
-    white-space: nowrap;
-    font-style: italic;
-}
-
-/* ===== GRUPO DE BOTONES ===== */
-.button-group-signup {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e2e8f0;
-    width: 100%;
-}
-
-/* ===== BOTÓN REGRESAR ESPECÍFICO ===== */
-.button-regresar-signup {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    text-decoration: none;
-    background: linear-gradient(135deg, #3abdc0, #2ca7a9);
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    min-width: 140px;
-    box-shadow: 0 2px 4px rgba(58, 189, 192, 0.2);
-}
-
-.button-regresar-signup:hover {
-    background: linear-gradient(135deg, #2ca7a9, #249597);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(58, 189, 192, 0.3);
-}
-
-/* ===== RESPONSIVE - MOBILE FIRST ===== */
+/* ===== RESPONSIVE ESPECÍFICO ===== */
 @media (max-width: 768px) {
     .client-module-container {
         margin: 1rem auto;
@@ -243,28 +151,22 @@
         font-size: 1rem;
     }
 
-    .form-group-signup input.small-input,
-    .form-group-signup input.medium-input {
-        width: 100%;
-        max-width: none;
-        min-width: auto;
-    }
-
     /* Grupos especiales en mobile */
     .form-group-signup.type-selector {
         align-items: stretch;
     }
 
-    .form-group-signup.type-selector input[type="text"] {
-        margin-right: 0;
-        width: 100%;
+    .form-group-signup.type-selector .identification-input-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
 
-    .form-group-signup .radio-group {
+    .radio-group-traditional {
         flex-direction: row;
         justify-content: flex-start;
         width: 100%;
-        gap: 1rem;
+        gap: 1.5rem;
         margin-top: 0.5rem;
     }
 
@@ -274,28 +176,6 @@
 
     .form-group-signup.full-width-textarea-signup label {
         padding-top: 0;
-    }
-
-    /* Botones en mobile */
-    .button-group-signup {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .button-regresar-signup {
-        width: 100%;
-        max-width: 280px;
-        margin-left: 0;
-    }
-
-    /* Ajustes de texto en mobile */
-    .info-text {
-        margin-left: 0;
-        font-size: 0.8rem;
-        text-align: center;
-        display: block;
-        margin-top: 0.25rem;
     }
 }
 
@@ -309,38 +189,18 @@
         margin-bottom: 1.25rem;
     }
 
-    .form-group-signup .radio-group {
-        gap: 0.75rem;
+    .radio-group-traditional {
+        gap: 1rem;
     }
 
-    .form-group-signup .radio-group label {
+    .radio-label {
         font-size: 0.9rem;
-        padding-left: 1.75rem;
-    }
-
-    .button-group-signup {
-        margin-top: 1.5rem;
-        padding-top: 1rem;
     }
 }
 
-/* ===== MEJORAS DE ACCESIBILIDAD ===== */
+/* ===== MEJORAS DE ACCESIBILIDAD ESPECÍFICAS ===== */
 .form-group-signup input:focus-visible,
 .form-group-signup textarea:focus-visible {
     outline: 2px solid #3abdc0;
     outline-offset: 2px;
-}
-
-.form-group-signup .radio-group input[type="radio"]:focus-visible+label::before {
-    outline: 2px solid #3abdc0;
-    outline-offset: 2px;
-}
-
-/* ===== ESTADOS DE DESHABILITADO ===== */
-.form-group-signup input:disabled,
-.form-group-signup textarea:disabled {
-    background-color: #f7fafc;
-    color: #a0aec0;
-    cursor: not-allowed;
-    border-color: #e2e8f0;
 }
