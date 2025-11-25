@@ -64,13 +64,6 @@
     flex-wrap: nowrap;
 }
 
-.form-group-clients.type-selector label {
-    width: 200px;
-    text-align: right;
-    margin-right: 15px;
-    flex-shrink: 0;
-}
-
 .form-group-clients.type-selector .identification-input-container {
     display: flex;
     align-items: center;
