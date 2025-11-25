@@ -504,7 +504,7 @@ const Purchases = () => {
                     )}
 
                     {/* Botones de acción */}
-                    <div className="button-group-purchases">
+                    <div className="button-group">
                         <button type="submit" className="button primary large-button">
                             REGISTRAR COMPRA
                         </button>
@@ -524,18 +524,18 @@ const Purchases = () => {
             </div>
 
             {/* Historial de Compras */}
-            <div className="purchases-history">
-                <div className="purchases-history-header">
+            <div className="list">
+                <div className="list-header">
                     <h2>HISTORIAL DE COMPRAS</h2>
-                    <div className="search-container-purchases">
+                    <div className="search-container">
                         <input
                             type="text"
                             placeholder="Buscar por código, proveedor, total o fecha..."
                             value={searchTerm}
                             onChange={handleSearchChange}
-                            className="search-input-purchases"
+                            className="search-input"
                         />
-                        <div className="search-results-info-purchases">
+                        <div className="search-results-info">
                             {filteredPurchases.length} de {purchases.length} compras encontradas
                         </div>
                     </div>
@@ -592,9 +592,9 @@ const Purchases = () => {
 
                         {/* Paginación */}
                         {filteredPurchases.length > purchasesPerPage && (
-                            <div className="pagination-purchases">
+                            <div className="pagination">
                                 <button
-                                    className="pagination-button-purchases"
+                                    className="pagination-button"
                                     onClick={() => handlePageChange(currentPage - 1)}
                                     disabled={currentPage === 1}
                                 >
@@ -604,7 +604,7 @@ const Purchases = () => {
                                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                                     <button
                                         key={page}
-                                        className={`pagination-button-purchases ${currentPage === page ? 'active' : ''}`}
+                                        className={`pagination-button ${currentPage === page ? 'active' : ''}`}
                                         onClick={() => handlePageChange(page)}
                                     >
                                         {page}
@@ -612,7 +612,7 @@ const Purchases = () => {
                                 ))}
 
                                 <button
-                                    className="pagination-button-purchases"
+                                    className="pagination-button"
                                     onClick={() => handlePageChange(currentPage + 1)}
                                     disabled={currentPage === totalPages}
                                 >
