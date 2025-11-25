@@ -1,5 +1,24 @@
-/* Estilos específicos para el componente App */
+/* === ESTILOS GLOBALES DE LA APLICACIÓN === */
 
+/* Fuentes y estilos base unificados */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #A0A0A0;
+  color: #333;
+  line-height: 1.6;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Estilos específicos para el componente App */
 .content {
   text-align: center;
   padding: 40px 20px;
