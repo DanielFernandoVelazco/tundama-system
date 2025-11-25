@@ -79,47 +79,6 @@
     flex-grow: 1;
 }
 
-/* RADIO BUTTONS TRADICIONALES CUADRADOS */
-.radio-group-traditional {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-shrink: 0;
-}
-
-.radio-label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 500;
-    color: #4a5568;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.radio-label:hover {
-    color: #2d3748;
-}
-
-.radio-label input[type="radio"] {
-    margin-right: 0.5rem;
-    width: 1.1rem;
-    height: 1.1rem;
-    cursor: pointer;
-}
-
-.radio-text {
-    font-weight: 500;
-}
-
-.form-group-signup.full-width-textarea-signup {
-    align-items: flex-start;
-}
-
-.form-group-signup.full-width-textarea-signup label {
-    padding-top: 0.75rem;
-}
-
 /* ===== RESPONSIVE ESPECÍFICO ===== */
 @media (max-width: 768px) {
     .client-module-container {
