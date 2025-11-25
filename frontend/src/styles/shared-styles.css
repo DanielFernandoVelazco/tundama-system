@@ -7,13 +7,6 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #A0A0A0;
-    color: #333;
-    line-height: 1.6;
-}
-
 /* ===== CONTENEDORES PRINCIPALES ===== */
 .container {
     background-color: #E0E0E0;
@@ -119,6 +112,19 @@ body {
     padding-bottom: 8px;
     border-bottom: 2px solid #3ABDBF;
     text-align: center;
+}
+
+/* Header de la lista */
+.list-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.list-header h2 {
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 20px;
 }
 
 /* ===== BOTONES ===== */
@@ -497,6 +503,36 @@ body {
     color: #1565c0;
 }
 
+.badge.und {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+.badge.kg {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge.lt {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.badge.m {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.badge.m2 {
+    background-color: #e8eaf6;
+    color: #303f9f;
+}
+
+.badge.m3 {
+    background-color: #e0f2f1;
+    color: #00695c;
+}
+
 /* Segment Buttons */
 .segment-buttons {
     display: flex;
@@ -629,7 +665,6 @@ body {
         width: 100%;
         max-width: none;
         font-size: 16px;
-        /* Mejor para mobile */
     }
 
     .radio-group {
@@ -688,6 +723,14 @@ body {
     .segment-button {
         flex: 1;
         min-width: auto;
+    }
+
+    .search-input {
+        max-width: 100%;
+    }
+
+    .section-header h2 {
+        font-size: 18px;
     }
 }
 
