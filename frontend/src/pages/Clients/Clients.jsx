@@ -374,6 +374,11 @@ const Clients = () => {
                     </>
                 )}
             </div>
+
+            <div className="footer-info">
+                <p>NEGOCIO TUNDAMA LTDA</p>
+                <p>VERSION 1.0</p>
+            </div>
         </div>
     );
 };
