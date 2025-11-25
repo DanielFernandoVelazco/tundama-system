@@ -6,12 +6,6 @@
     padding: 0 15px;
 }
 
-.info-text-sales {
-    font-size: 14px;
-    color: #888;
-    margin-left: 10px;
-}
-
 /* Secciones principales compactas - SIGUIENDO COMPRAS */
 .client-sales-section,
 .product-section-sales,
@@ -165,34 +159,6 @@
     height: 38px;
 }
 
-/* Tabla de items compacta */
-.items-table-section-sales {
-    margin-top: 15px;
-}
-
-.data-table-container {
-    overflow-x: auto;
-}
-
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-}
-
-.data-table th,
-.data-table td {
-    padding: 8px 12px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.data-table th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    color: #333;
-}
-
 /* Totales más compactos */
 .totals-section-sales {
     margin-top: 15px;
@@ -233,16 +199,6 @@
 }
 
 /* Botones compactos */
-.button-group-sales {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-    width: 100%;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-}
-
 .large-button-sales {
     padding: 10px 25px;
     font-size: 14px;
@@ -261,27 +217,7 @@
     box-sizing: border-box;
 }
 
-.sales-history-header {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.sales-history-header h2 {
-    color: #333;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    font-size: 20px;
-}
-
 /* Búsqueda en historial compacta */
-.search-container-sales {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
-}
-
 .search-input-sales {
     width: 100%;
     max-width: 400px;
@@ -291,55 +227,6 @@
     font-size: 14px;
     margin-bottom: 8px;
     height: 38px;
-}
-
-.search-results-info-sales {
-    font-size: 13px;
-    color: #666;
-    text-align: center;
-}
-
-/* Paginación compacta */
-.pagination-sales {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #e0e0e0;
-}
-
-.pagination-button-sales {
-    padding: 6px 10px;
-    border: 1px solid #3ABDBF;
-    background-color: white;
-    color: #3ABDBF;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 13px;
-    min-width: 35px;
-    text-align: center;
-    transition: all 0.3s ease;
-    height: 32px;
-}
-
-.pagination-button-sales:hover:not(:disabled) {
-    background-color: #3ABDBF;
-    color: white;
-}
-
-.pagination-button-sales:disabled {
-    background-color: #f5f5f5;
-    color: #ccc;
-    border-color: #ccc;
-    cursor: not-allowed;
-}
-
-.pagination-button-sales.active {
-    background-color: #3ABDBF;
-    color: white;
-    font-weight: bold;
 }
 
 /* Sección de productos reorganizada - SIGUIENDO COMPRAS */
@@ -429,22 +316,6 @@
     color: #27ae60;
 }
 
-.sale-products .products-badge {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-    background-color: #e8f5e8;
-    color: #2e7d32;
-}
-
-/* Acciones en la tabla */
-.actions-sales {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-}
-
 /* Responsive mejorado - SIGUIENDO COMPRAS */
 @media (max-width: 768px) {
     .sales-purchases-module-container {
@@ -509,12 +380,6 @@
         height: 36px;
     }
 
-    .button-group-sales {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-
     .large-button-sales {
         min-width: 160px;
         height: 40px;
@@ -531,34 +396,9 @@
         padding: 15px;
     }
 
-    .sales-history-header h2 {
-        font-size: 18px;
-    }
-
     .search-input-sales {
         max-width: 100%;
         height: 36px;
-    }
-
-    .pagination-sales {
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-
-    .pagination-button-sales {
-        padding: 5px 8px;
-        font-size: 12px;
-        min-width: 30px;
-        height: 30px;
-    }
-
-    .data-table {
-        font-size: 13px;
-    }
-
-    .data-table th,
-    .data-table td {
-        padding: 6px 8px;
     }
 
     .product-row-sales {
@@ -591,11 +431,6 @@
         min-width: auto;
         height: 40px;
         font-size: 13px;
-    }
-
-    .actions-sales {
-        flex-direction: column;
-        gap: 5px;
     }
 }
 
