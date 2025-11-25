@@ -254,7 +254,7 @@ const Clients = () => {
                         />
                     </div>
 
-                    <div className="button-group-clients">
+                    <div className="button-group">
                         <button type="submit" className="button primary">
                             {editingId ? 'ACTUALIZAR' : 'REGISTRAR'}
                         </button>
@@ -271,8 +271,8 @@ const Clients = () => {
             </div>
 
             {/* Lista de Clientes Mejorada */}
-            <div className="clients-list">
-                <div className="clients-list-header">
+            <div className="list">
+                <div className="list-header">
                     <h2>LISTA DE CLIENTES</h2>
                     <div className="search-container">
                         <input
