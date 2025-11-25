@@ -470,8 +470,8 @@ const Sales = () => {
                     )}
 
                     {/* Botones de acción */}
-                    <div className="button-group-sales">
-                        <button type="submit" className="button primary large-button-sales">
+                    <div className="button-group">
+                        <button type="submit" className="button primary large-button">
                             REGISTRAR VENTA
                         </button>
                         <button
@@ -490,8 +490,8 @@ const Sales = () => {
             </div>
 
             {/* Historial de Ventas - ESTRUCTURA ACTUALIZADA */}
-            <div className="sales-history">
-                <div className="sales-history-header">
+            <div className="list">
+                <div className="list-header">
                     <h2>HISTORIAL DE VENTAS</h2>
                     <div className="search-container-sales">
                         <input
@@ -501,7 +501,7 @@ const Sales = () => {
                             onChange={handleSearchChange}
                             className="search-input-sales"
                         />
-                        <div className="search-results-info-sales">
+                        <div className="search-results-info">
                             {filteredSales.length} de {sales.length} ventas encontradas
                         </div>
                     </div>
@@ -562,9 +562,9 @@ const Sales = () => {
 
                         {/* Paginación */}
                         {filteredSales.length > salesPerPage && (
-                            <div className="pagination-sales">
+                            <div className="pagination">
                                 <button
-                                    className="pagination-button-sales"
+                                    className="pagination-button"
                                     onClick={() => handlePageChange(currentPage - 1)}
                                     disabled={currentPage === 1}
                                 >
@@ -574,7 +574,7 @@ const Sales = () => {
                                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                                     <button
                                         key={page}
-                                        className={`pagination-button-sales ${currentPage === page ? 'active' : ''}`}
+                                        className={`pagination-button ${currentPage === page ? 'active' : ''}`}
                                         onClick={() => handlePageChange(page)}
                                     >
                                         {page}
@@ -582,7 +582,7 @@ const Sales = () => {
                                 ))}
 
                                 <button
-                                    className="pagination-button-sales"
+                                    className="pagination-button"
                                     onClick={() => handlePageChange(currentPage + 1)}
                                     disabled={currentPage === totalPages}
                                 >
