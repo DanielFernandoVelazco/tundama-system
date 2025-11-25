@@ -238,7 +238,7 @@ const Providers = () => {
                         />
                     </div>
 
-                    <div className="button-group-providers">
+                    <div className="button-group">
                         <button type="submit" className="button primary">
                             {editingId ? 'ACTUALIZAR' : 'REGISTRAR'}
                         </button>
@@ -255,8 +255,8 @@ const Providers = () => {
             </div>
 
             {/* Lista de Proveedores Mejorada */}
-            <div className="providers-list">
-                <div className="providers-list-header">
+            <div className="list">
+                <div className="list-header">
                     <h2>LISTA DE PROVEEDORES</h2>
                     <div className="search-container">
                         <input
