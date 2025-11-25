@@ -270,7 +270,7 @@ const Products = () => {
                         />
                     </div>
 
-                    <div className="button-group-products">
+                    <div className="button-group">
                         <button type="submit" className="button primary">
                             {editingId ? 'ACTUALIZAR' : 'REGISTRAR'}
                         </button>
@@ -287,8 +287,8 @@ const Products = () => {
             </div>
 
             {/* Lista de Productos Mejorada */}
-            <div className="products-list">
-                <div className="products-list-header">
+            <div className="list">
+                <div className="list-header">
                     <h2>INVENTARIO DE PRODUCTOS</h2>
                     <div className="search-container">
                         <input
