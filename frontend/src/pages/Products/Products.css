@@ -1,6 +1,4 @@
-/* Products.css - ESTILOS ESPECÍFICOS PARA EL COMPONENTE PRODUCTS */
-
-/* Columnas específicas de la tabla de productos */
+/* --- TABLA DE PRODUCTOS --- */
 .product-code {
     font-weight: bold;
     color: #2c3e50;
@@ -20,9 +18,7 @@
     font-weight: bold;
 }
 
-/* ESTILOS ESPECÍFICOS DEL FORMULARIO DE PRODUCTOS */
-
-/* Estilos del formulario - ALINEACIÓN */
+/* --- FORMULARIO DE PRODUCTOS --- */
 .form-group-products {
     display: flex;
     align-items: center;
@@ -60,13 +56,13 @@
     width: 100%;
 }
 
-/* Campos de entrada pequeños */
+/* Campos pequeños (Precio, IVA, Unidad) */
 .form-group-products input.small-input,
 .form-group-products select.small-input {
     max-width: 150px;
 }
 
-/* Textarea de ancho completo */
+/* Contenedor para descripción (textarea) */
 .form-group-products.full-width-textarea-products {
     align-items: flex-start;
 }
@@ -76,7 +72,7 @@
     align-self: flex-start;
 }
 
-/* Responsive específico para Products */
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .form-group-products {
         flex-direction: column;
