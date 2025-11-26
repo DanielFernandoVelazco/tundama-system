@@ -1,5 +1,3 @@
-/* Clients.css - ESTILOS ESPECÍFICOS PARA EL COMPONENTE CLIENTS */
-
 /* Columnas específicas de la tabla de clientes */
 .client-code {
     font-weight: bold;
@@ -17,8 +15,6 @@
 .client-phone {
     font-family: 'Courier New', monospace;
 }
-
-/* ESTILOS ESPECÍFICOS DEL FORMULARIO DE CLIENTES */
 
 /* Estilos del formulario - ALINEACIÓN */
 .form-group-clients {
