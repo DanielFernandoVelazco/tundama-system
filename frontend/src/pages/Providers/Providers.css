@@ -1,5 +1,3 @@
-/* Providers.css - ESTILOS ESPECÍFICOS PARA EL COMPONENTE PROVIDERS */
-
 /* Columnas específicas de la tabla de proveedores */
 .provider-code {
     font-weight: bold;
@@ -10,15 +8,10 @@
     color: #34495e;
 }
 
-.provider-identification {
-    font-family: 'Courier New', monospace;
-}
-
+.provider-identification,
 .provider-phone {
     font-family: 'Courier New', monospace;
 }
-
-/* ESTILOS ESPECÍFICOS DEL FORMULARIO DE PROVEEDORES */
 
 /* Estilos del formulario - ALINEACIÓN */
 .form-group-providers {
@@ -57,18 +50,11 @@
     width: 100%;
 }
 
-/* GRUPO DE IDENTIFICACIÓN - ESTILO IDÉNTICO A CLIENTS */
+/* GRUPO DE IDENTIFICACIÓN */
 .form-group-providers.identification-group {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-}
-
-.form-group-providers.identification-group label {
-    width: 200px;
-    text-align: right;
-    margin-right: 15px;
-    flex-shrink: 0;
 }
 
 .form-group-providers.identification-group .identification-input-container {
@@ -84,7 +70,7 @@
     margin: 0;
 }
 
-/* BADGE NIT FIJO - MISMOS ESTILOS QUE CLIENTS */
+/* BADGE NIT FIJO */
 .nit-fixed-badge {
     padding: 10px 20px;
     background-color: #3ABDBF;
@@ -96,7 +82,7 @@
     text-align: center;
 }
 
-/* Textarea de ancho completo - CORREGIDO */
+/* Textarea de ancho completo */
 .form-group-providers.full-width-textarea-providers {
     align-items: flex-start;
 }
@@ -146,6 +132,5 @@
 
     .nit-fixed-badge {
         width: 100%;
-        text-align: center;
     }
 }
