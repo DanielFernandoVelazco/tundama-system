@@ -1,17 +1,8 @@
-/* Purchases.css - ESTILOS ESPECÍFICOS PARA COMPRAS */
-
-.sales-purchases-module-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 15px;
-}
-
-/* --- SECCIONES Y CONTENEDORES (Estilos compartidos) --- */
+/* --- ESTILOS GENERALES DE LA PÁGINA DE COMPRAS --- */
 .buyer-seller-section,
 .product-section,
 .items-table-section,
-.totals-section,
-.purchases-history {
+.totals-section {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -45,14 +36,12 @@
 }
 
 /* --- ESTILOS GENERALES DE FORMULARIOS E INPUTS --- */
-/* Agrupamos estilos base para todos los inputs y selects del módulo */
 .form-group-purchases input[type="text"],
 .form-group-purchases input[type="number"],
 .form-group-purchases select,
 .product-row input[type="text"],
 .product-row input[type="number"],
 .product-row select,
-.search-input-purchases,
 .price-iva-total-purchases input {
     padding: 8px 12px;
     border: 1px solid #ccc;
@@ -133,34 +122,6 @@
 .product-row select {
     flex-grow: 1;
     max-width: 400px;
-    /* Base max-width para inputs de productos */
-}
-
-/* Detalles extra del producto (Layout Grid antiguo/alternativo) */
-.product-details-row {
-    display: grid;
-    grid-template-columns: 120px 140px 100px auto;
-    gap: 15px;
-    align-items: end;
-    margin-top: 15px;
-}
-
-.product-detail-group {
-    margin-bottom: 0;
-}
-
-.product-detail-group label {
-    width: auto;
-    text-align: left;
-    margin-right: 8px;
-    min-width: auto;
-}
-
-.product-action-group {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin-bottom: 0;
 }
 
 /* --- TOTALES --- */
@@ -197,7 +158,7 @@
     background-color: #f9f9f9;
 }
 
-/* --- BOTONES Y OTROS --- */
+/* --- BOTONES ESPECÍFICOS --- */
 .large-button,
 .register-button {
     padding: 10px 20px;
@@ -210,27 +171,15 @@
     white-space: nowrap;
 }
 
-.search-input-purchases {
-    width: 100%;
-    max-width: 400px;
-    margin-bottom: 8px;
-}
-
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    .sales-purchases-module-container {
-        padding: 0 10px;
-        margin: 10px auto;
-    }
-
     .buyer-seller-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
 
     .buyer-info,
-    .seller-info,
-    .purchases-history {
+    .seller-info {
         padding: 12px;
     }
 
@@ -244,8 +193,7 @@
     }
 
     .form-group-purchases label,
-    .product-row label,
-    .product-detail-group label {
+    .product-row label {
         text-align: left;
         width: 100%;
         margin-right: 0;
@@ -260,18 +208,12 @@
     .product-row input[type="text"],
     .product-row input[type="number"],
     .product-row select,
-    .search-input-purchases,
     .price-iva-total-purchases input {
         width: 100%;
         max-width: none;
         font-size: 13px;
         padding: 6px 10px;
         height: 36px;
-    }
-
-    .product-details-row {
-        grid-template-columns: 1fr;
-        gap: 12px;
     }
 
     .price-iva-total-purchases {
@@ -282,7 +224,6 @@
 
     .price-iva-total-purchases input {
         width: 100px;
-        /* Excepción para el total */
     }
 
     .large-button,
@@ -306,10 +247,6 @@
 
     .form-group-purchases {
         font-size: 14px;
-    }
-
-    .product-details-row {
-        grid-template-columns: 1fr;
     }
 
     .price-iva-total-purchases {
