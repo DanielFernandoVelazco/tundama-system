@@ -1,12 +1,4 @@
-/* Sales.css - ESTILOS REFACTORIZADOS SIGUIENDO EL PATRÓN DE COMPRAS */
-
-.sales-purchases-module-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 15px;
-}
-
-/* Secciones principales compactas - SIGUIENDO COMPRAS */
+/* Secciones principales */
 .client-sales-section,
 .product-section-sales,
 .items-table-section-sales,
@@ -30,7 +22,7 @@
     text-align: center;
 }
 
-/* Grid de cliente más compacto */
+/* Grid de cliente */
 .client-grid-sales {
     display: grid;
     grid-template-columns: 1fr;
@@ -51,7 +43,7 @@
     font-size: 16px;
 }
 
-/* Form groups más compactos - UNIFICADO CON COMPRAS */
+/* Form groups (General) */
 .form-group-sales {
     display: flex;
     align-items: center;
@@ -97,73 +89,67 @@
     max-width: 120px;
 }
 
-/* Estilos específicos para productos más compactos */
+/* Sección de productos (Filas Flexibles) */
 .product-row-sales {
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
 }
 
+.product-row-sales label {
+    width: 180px;
+    text-align: right;
+    margin-right: 12px;
+    font-weight: bold;
+    color: #555;
+    min-width: 100px;
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+/* Estilos específicos para inputs de productos */
 .product-select-sales {
     max-width: 400px !important;
+    flex-grow: 1;
 }
 
 .product-description-sales {
     max-width: none !important;
     width: 100% !important;
+    flex-grow: 1;
 }
 
-/* Fila de detalles del producto más compacta */
-.product-details-row-sales {
-    display: grid;
-    grid-template-columns: 120px 140px 100px auto;
-    gap: 15px;
-    align-items: end;
-    margin-top: 15px;
-}
-
-.product-detail-group-sales {
-    margin-bottom: 0;
-}
-
-.product-detail-group-sales label {
-    width: auto;
-    font-size: 14px;
-    text-align: left;
-    margin-right: 8px;
-    min-width: auto;
-}
-
-.quantity-input-sales {
-    max-width: 80px !important;
-}
-
-.price-display-sales {
-    max-width: 100px !important;
-}
-
+.quantity-input-sales,
+.price-display-sales,
 .iva-display-sales {
-    max-width: 80px !important;
+    max-width: 200px !important;
+    flex-grow: 1;
 }
 
-.product-action-group-sales {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin-bottom: 0;
+/* Unificación de estilos de inputs en filas de productos */
+.product-row-sales input[type="text"],
+.product-row-sales input[type="number"],
+.product-row-sales select {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    height: 38px;
+    box-sizing: border-box;
 }
 
 .register-button-sales {
-    white-space: nowrap;
-    min-width: 160px;
-    padding: 8px 16px;
+    min-width: 180px;
+    padding: 10px 20px;
     font-size: 14px;
-    height: 38px;
+    height: 42px;
+    white-space: nowrap;
 }
 
-/* Totales más compactos */
-.totals-section-sales {
-    margin-top: 15px;
-}
-
+/* Totales */
 .price-iva-total-sales {
     display: flex;
     justify-content: center;
@@ -198,26 +184,7 @@
     height: 38px;
 }
 
-/* Botones compactos */
-.large-button-sales {
-    padding: 10px 25px;
-    font-size: 14px;
-    min-width: 180px;
-    height: 42px;
-}
-
-/* Historial de ventas compacto */
-.sales-history {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Búsqueda en historial compacta */
+/* Búsqueda en historial */
 .search-input-sales {
     width: 100%;
     max-width: 400px;
@@ -227,74 +194,6 @@
     font-size: 14px;
     margin-bottom: 8px;
     height: 38px;
-}
-
-/* Sección de productos reorganizada - SIGUIENDO COMPRAS */
-.product-section-sales {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.product-row-sales {
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-}
-
-.product-row-sales label {
-    width: 180px;
-    text-align: right;
-    margin-right: 12px;
-    font-weight: bold;
-    color: #555;
-    min-width: 100px;
-    flex-shrink: 0;
-    font-size: 14px;
-}
-
-.product-select-sales {
-    max-width: 400px !important;
-    flex-grow: 1;
-}
-
-.product-description-sales {
-    max-width: none !important;
-    width: 100% !important;
-    flex-grow: 1;
-}
-
-.quantity-input-sales,
-.price-display-sales,
-.iva-display-sales {
-    max-width: 200px !important;
-    flex-grow: 1;
-}
-
-.register-button-sales {
-    min-width: 180px;
-    padding: 10px 20px;
-    font-size: 14px;
-    height: 42px;
-}
-
-/* Asegurar que los inputs tengan el mismo estilo */
-.product-row-sales input[type="text"],
-.product-row-sales input[type="number"],
-.product-row-sales select {
-    flex-grow: 1;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    height: 38px;
-    box-sizing: border-box;
 }
 
 /* Columnas específicas de la tabla de ventas */
@@ -316,13 +215,8 @@
     color: #27ae60;
 }
 
-/* Responsive mejorado - SIGUIENDO COMPRAS */
+/* Responsive */
 @media (max-width: 768px) {
-    .sales-purchases-module-container {
-        padding: 0 10px;
-        margin: 10px auto;
-    }
-
     .client-grid-sales {
         grid-template-columns: 1fr;
         gap: 15px;
@@ -330,11 +224,6 @@
 
     .client-info-sales {
         padding: 12px;
-    }
-
-    .product-details-row-sales {
-        grid-template-columns: 1fr;
-        gap: 12px;
     }
 
     .form-group-sales {
@@ -363,44 +252,7 @@
         height: 36px;
     }
 
-    .product-detail-group-sales label {
-        width: 100%;
-        text-align: left;
-    }
-
-    .price-iva-total-sales {
-        flex-direction: column;
-        gap: 12px;
-        font-size: 14px;
-    }
-
-    .price-iva-total-sales input {
-        width: 100px;
-        font-size: 13px;
-        height: 36px;
-    }
-
-    .large-button-sales {
-        min-width: 160px;
-        height: 40px;
-        font-size: 13px;
-    }
-
-    .register-button-sales {
-        min-width: 140px;
-        height: 36px;
-        font-size: 13px;
-    }
-
-    .sales-history {
-        padding: 15px;
-    }
-
-    .search-input-sales {
-        max-width: 100%;
-        height: 36px;
-    }
-
+    /* Ajustes responsive para filas de productos */
     .product-row-sales {
         flex-direction: column;
         align-items: flex-start;
@@ -432,6 +284,23 @@
         height: 40px;
         font-size: 13px;
     }
+
+    .price-iva-total-sales {
+        flex-direction: column;
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .price-iva-total-sales input {
+        width: 100px;
+        font-size: 13px;
+        height: 36px;
+    }
+
+    .search-input-sales {
+        max-width: 100%;
+        height: 36px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -445,10 +314,6 @@
 
     .form-group-sales {
         font-size: 14px;
-    }
-
-    .product-details-row-sales {
-        grid-template-columns: 1fr;
     }
 
     .price-iva-total-sales {
