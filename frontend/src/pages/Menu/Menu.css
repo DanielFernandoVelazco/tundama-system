@@ -36,12 +36,6 @@
     min-width: 350px;
 }
 
-.main-menu-options .button-menu {
-    width: 100%;
-    text-align: center;
-    padding: 15px 20px;
-}
-
 .main-menu-right-panel {
     display: flex;
     flex-direction: column;
@@ -80,15 +74,5 @@
     .main-menu-right-panel {
         width: 100%;
         max-width: 400px;
-    }
-
-    .header-menu {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-
-    .header-menu h1 {
-        font-size: 18px;
     }
 }
